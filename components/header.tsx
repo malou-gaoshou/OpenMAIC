@@ -48,6 +48,12 @@ export function Header({ currentSceneTitle }: HeaderProps) {
   const failedOutlines = useStageStore((s) => s.failedOutlines);
   const mediaTasks = useMediaGenerationStore((s) => s.tasks);
 
+  const canExport =
+    scenes.length > 0 &&
+    generatingOutlines.length === 0 &&
+    failedOutlines.length === 0 &&
+    Object.values(mediaTasks).every((task) => task.status === 'done' || task.status === 'failed');
+
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
   const canShare = scenes.length > 0;
 
