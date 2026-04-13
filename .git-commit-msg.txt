@@ -1,0 +1,5 @@
+feat: update theme colors from violet to blue
+
+- Make logo background transparent
+- Replace all violet color tokens with blue (#005ca9)
+- Replace purple and indigo color tokens with blue across components

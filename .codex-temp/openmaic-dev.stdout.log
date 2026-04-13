@@ -1,0 +1,521 @@
+
+> openmaic@0.1.0 dev D:\05_Projects\OpenMAIC\OpenMAIC
+> next dev
+
+▲ Next.js 16.1.2 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://172.19.16.1:3001
+- Experiments (use with caution):
+  · proxyClientMaxBodySize: "200mb"
+
+✓ Starting...
+Creating turbopack project { dir: 'D:\\05_Projects\\OpenMAIC\\OpenMAIC', testMode: true }
+✓ Ready in 768ms
+Persisting failed: Unable to commit operations
+
+Caused by:
+    0: Unable to write meta file 00000026.meta
+    1: 请求的操作无法在使用用户映射区域打开的文件上执行。 (os error 1224)
+○ Compiling / ...
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+ GET / 200 in 154ms (compile: 16ms, render: 138ms)
+ GET /api/server-providers 200 in 1154ms (compile: 1133ms, render: 21ms)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+ POST /api/verify-model 500 in 2.3s (compile: 2.1s, render: 184ms)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+ POST /api/verify-model 500 in 160ms (compile: 5ms, render: 155ms)
+ POST /api/verify-model 500 in 85ms (compile: 3ms, render: 83ms)
+ POST /api/verify-model 500 in 487ms (compile: 3ms, render: 484ms)
+ POST /api/verify-model 500 in 157ms (compile: 2ms, render: 155ms)
+ POST /api/verify-model 500 in 169ms (compile: 3ms, render: 165ms)
+ POST /api/verify-model 500 in 135ms (compile: 2ms, render: 132ms)
+ POST /api/verify-model 500 in 142ms (compile: 2ms, render: 140ms)
+ POST /api/verify-model 500 in 96ms (compile: 5ms, render: 91ms)
+ POST /api/verify-image-provider 200 in 857ms (compile: 596ms, render: 261ms)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+ GET /generation-preview 200 in 1220ms (compile: 1125ms, render: 95ms)
+ GET /generation-preview 200 in 65ms (compile: 7ms, render: 57ms)
+[2026-03-30T07:09:48.528Z] [INFO] [Agent Profiles API] Generating agent profiles for "从零开始学习langchain和langgraph" [model=doubao:doubao-seed-2-0-pro-260215]
+ POST /api/generate/agent-profiles 500 in 731ms (compile: 571ms, render: 160ms)
+[2026-03-30T07:09:49.765Z] [INFO] [Outlines Stream] Generating outlines: "从零开始学习langchain和langgraph" [model=doubao:doubao-seed-2-0-pro-260215]
+ POST /api/generate/scene-outlines-stream 200 in 1662ms (compile: 1072ms, render: 590ms)
+ GET / 200 in 24ms (compile: 6ms, render: 18ms)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+ GET /generation-preview 200 in 32ms (compile: 6ms, render: 26ms)
+[2026-03-30T07:10:13.066Z] [INFO] [Agent Profiles API] Generating agent profiles for "从零开始学习langchain" [model=deepseek:deepseek-chat]
+ POST /api/generate/agent-profiles 500 in 142ms (compile: 5ms, render: 137ms)
+[2026-03-30T07:10:13.206Z] [INFO] [Outlines Stream] Generating outlines: "从零开始学习langchain" [model=deepseek:deepseek-chat]
+ POST /api/generate/scene-outlines-stream 200 in 523ms (compile: 1796µs, render: 521ms)
+ GET / 200 in 21ms (compile: 5ms, render: 16ms)
+ POST /api/verify-model 500 in 145ms (compile: 3ms, render: 142ms)
+ POST /api/verify-model 500 in 154ms (compile: 3ms, render: 151ms)
+ POST /api/verify-model 500 in 157ms (compile: 3ms, render: 155ms)
+ POST /api/verify-model 500 in 95ms (compile: 4ms, render: 90ms)
+ POST /api/verify-model 500 in 99ms (compile: 4ms, render: 95ms)
+ POST /api/verify-model 500 in 152ms (compile: 3ms, render: 149ms)
+ POST /api/verify-model 500 in 109ms (compile: 3ms, render: 105ms)
+ POST /api/verify-model 500 in 94ms (compile: 5ms, render: 88ms)
+ POST /api/verify-model 500 in 84ms (compile: 3ms, render: 81ms)
+ POST /api/verify-model 500 in 93ms (compile: 4ms, render: 89ms)
+ POST /api/verify-model 500 in 94ms (compile: 5ms, render: 89ms)
+ POST /api/verify-model 500 in 95ms (compile: 4ms, render: 91ms)
+ POST /api/verify-model 500 in 146ms (compile: 5ms, render: 142ms)
+ POST /api/verify-model 500 in 93ms (compile: 5ms, render: 88ms)
+ POST /api/verify-model 500 in 93ms (compile: 6ms, render: 87ms)
+ POST /api/verify-model 500 in 100ms (compile: 4ms, render: 96ms)
+ POST /api/verify-model 500 in 94ms (compile: 5ms, render: 89ms)
+ POST /api/verify-model 500 in 90ms (compile: 3ms, render: 87ms)
+ POST /api/verify-model 500 in 106ms (compile: 6ms, render: 100ms)
+ POST /api/verify-model 500 in 86ms (compile: 5ms, render: 82ms)
+ POST /api/verify-model 500 in 83ms (compile: 2ms, render: 80ms)
+ POST /api/verify-model 500 in 91ms (compile: 5ms, render: 86ms)
+ POST /api/verify-model 500 in 127ms (compile: 4ms, render: 123ms)
+ POST /api/verify-model 500 in 85ms (compile: 3ms, render: 82ms)
+ POST /api/verify-model 500 in 90ms (compile: 3ms, render: 86ms)
+ POST /api/verify-model 500 in 83ms (compile: 1850µs, render: 82ms)
+ POST /api/verify-model 500 in 93ms (compile: 3ms, render: 90ms)
+ POST /api/verify-model 500 in 81ms (compile: 2ms, render: 78ms)
+ POST /api/verify-model 500 in 83ms (compile: 1529µs, render: 82ms)
+ POST /api/verify-model 500 in 151ms (compile: 4ms, render: 147ms)
+ POST /api/verify-model 500 in 91ms (compile: 2ms, render: 88ms)
+ POST /api/verify-model 500 in 86ms (compile: 4ms, render: 83ms)
+ POST /api/verify-model 500 in 135ms (compile: 3ms, render: 132ms)
+ POST /api/verify-model 500 in 675ms (compile: 2ms, render: 673ms)
+ POST /api/verify-video-provider 200 in 696ms (compile: 544ms, render: 152ms)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+ POST /api/verify-model 500 in 166ms (compile: 6ms, render: 160ms)
+ POST /api/verify-model 500 in 6.7s (compile: 3ms, render: 6.7s)
+ POST /api/verify-model 500 in 6.5s (compile: 3ms, render: 6.5s)
+ POST /api/verify-model 500 in 145ms (compile: 3ms, render: 142ms)
+ POST /api/verify-model 500 in 87ms (compile: 3ms, render: 84ms)
+ POST /api/verify-model 500 in 89ms (compile: 3ms, render: 87ms)
+ POST /api/verify-model 500 in 93ms (compile: 4ms, render: 89ms)
+ POST /api/verify-model 500 in 84ms (compile: 3ms, render: 81ms)
+ POST /api/verify-model 500 in 88ms (compile: 4ms, render: 84ms)
+ POST /api/verify-model 500 in 93ms (compile: 4ms, render: 89ms)
+ POST /api/verify-model 500 in 153ms (compile: 3ms, render: 150ms)
+ POST /api/verify-model 500 in 93ms (compile: 4ms, render: 89ms)
+ POST /api/verify-model 500 in 117ms (compile: 3ms, render: 115ms)
+ POST /api/verify-model 500 in 90ms (compile: 4ms, render: 85ms)
+ POST /api/verify-model 500 in 88ms (compile: 4ms, render: 84ms)
+ POST /api/verify-model 500 in 88ms (compile: 3ms, render: 85ms)
+ POST /api/verify-model 500 in 96ms (compile: 4ms, render: 92ms)
+ POST /api/verify-model 500 in 92ms (compile: 4ms, render: 88ms)
+ POST /api/verify-model 500 in 97ms (compile: 5ms, render: 92ms)
+ POST /api/verify-model 500 in 100ms (compile: 3ms, render: 97ms)
+ POST /api/verify-model 500 in 83ms (compile: 4ms, render: 80ms)
+ POST /api/verify-model 500 in 89ms (compile: 5ms, render: 84ms)
+ POST /api/verify-model 500 in 104ms (compile: 4ms, render: 100ms)
+ POST /api/verify-model 500 in 93ms (compile: 4ms, render: 89ms)
+ POST /api/verify-model 500 in 102ms (compile: 3ms, render: 98ms)
+ POST /api/verify-model 500 in 90ms (compile: 4ms, render: 86ms)
+ POST /api/verify-model 500 in 87ms (compile: 3ms, render: 84ms)
+ POST /api/verify-model 500 in 90ms (compile: 5ms, render: 85ms)
+ POST /api/verify-model 500 in 89ms (compile: 4ms, render: 86ms)
+ POST /api/verify-model 500 in 88ms (compile: 3ms, render: 85ms)
+ POST /api/verify-model 500 in 89ms (compile: 3ms, render: 85ms)
+ POST /api/verify-model 500 in 85ms (compile: 3ms, render: 83ms)
+ POST /api/verify-model 500 in 92ms (compile: 5ms, render: 87ms)
+ GET / 200 in 193ms (compile: 5ms, render: 188ms)
+ GET /api/server-providers 200 in 10ms (compile: 3ms, render: 6ms)
+ POST /api/verify-model 500 in 170ms (compile: 3ms, render: 166ms)
+ POST /api/verify-model 500 in 93ms (compile: 4ms, render: 88ms)
+ POST /api/verify-model 500 in 90ms (compile: 4ms, render: 86ms)
+ POST /api/verify-model 500 in 94ms (compile: 4ms, render: 91ms)
+ POST /api/verify-model 500 in 85ms (compile: 3ms, render: 82ms)
+ POST /api/verify-model 500 in 6.7s (compile: 3ms, render: 6.7s)
+ POST /api/verify-model 200 in 6.0s (compile: 3ms, render: 6.0s)
+ GET /generation-preview 200 in 42ms (compile: 6ms, render: 36ms)
+[2026-03-30T07:38:35.876Z] [INFO] [Agent Profiles API] Generating agent profiles for "从零开始学习langchain大模型开发" [model=glm:glm-5]
+[2026-03-30T07:38:53.440Z] [INFO] [Agent Profiles API] Successfully generated 4 agent profiles for "从零开始学习langchain大模型开发"
+ POST /api/generate/agent-profiles 200 in 17.6s (compile: 4ms, render: 17.6s)
+[2026-03-30T07:38:56.040Z] [INFO] [Outlines Stream] Generating outlines: "从零开始学习langchain大模型开发" [model=glm:glm-5]
+ POST /api/generate/scene-outlines-stream 200 in 85s (compile: 4ms, render: 85s)
+[2026-03-30T07:40:22.243Z] [INFO] [Scene Content API] Generating content: "Welcome to LangChain Development" (slide) [model=glm:glm-5]
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+[2026-03-30T07:50:01.990Z] [INFO] [Scene Content API] Content generated successfully: "Welcome to LangChain Development"
+ POST /api/generate/scene-content 200 in 9.7min (compile: 709ms, render: 9.7min)
+[2026-03-30T07:50:02.704Z] [INFO] [Scene Actions API] Generating actions: "Welcome to LangChain Development" (slide) [model=glm:glm-5]
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+[2026-03-30T07:50:20.164Z] [INFO] [Scene Actions API] Generated 12 actions for: "Welcome to LangChain Development"
+[2026-03-30T07:50:20.168Z] [INFO] [Scene Actions API] Scene assembled successfully: "Welcome to LangChain Development" — 12 actions
+ POST /api/generate/scene-actions 200 in 18.2s (compile: 684ms, render: 17.5s)
+○ Compiling /classroom/[id] ...
+ GET /classroom/dCw7e-wThO 200 in 9.4s (compile: 9.3s, render: 60ms)
+[2026-03-30T07:50:30.144Z] [INFO] [Scene Content API] Generating content: "What is LangChain?" (slide) [model=glm:glm-5]
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+ GET / 200 in 48ms (compile: 8ms, render: 40ms)
+ POST /api/generate/scene-content 200 in 43s (compile: 5ms, render: 43s)
+ GET /classroom/dCw7e-wThO 200 in 59ms (compile: 17ms, render: 43ms)
+[2026-03-30T07:51:14.729Z] [INFO] [Scene Content API] Generating content: "What is LangChain?" (slide) [model=glm:glm-5]
+○ Compiling /api/chat ...
+[2026-03-30T07:51:46.269Z] [INFO] [Chat API] Processing request
+[2026-03-30T07:51:46.271Z] [INFO] [Chat API] Agents: gen-8YwTr5RS, gen-LLdJH3M8, gen-n13yfk5d, gen-w_UpPZZ3, Messages: 1, Turn: 0
+[2026-03-30T07:51:46.273Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: gen-8YwTr5RS, gen-LLdJH3M8, gen-n13yfk5d, gen-w_UpPZZ3
+[2026-03-30T07:51:46.274Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 1, turnCount: 0
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+[2026-03-30T07:51:52.784Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 0, Actions: 0, hadContent: false, turnCount: 0
+ POST /api/chat 200 in 10.7s (compile: 4.2s, render: 6.5s)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+[2026-03-30T07:53:57.707Z] [INFO] [Chat API] Processing request
+[2026-03-30T07:53:57.710Z] [INFO] [Chat API] Agents: gen-8YwTr5RS, gen-LLdJH3M8, gen-n13yfk5d, gen-w_UpPZZ3, Messages: 1, Turn: 0
+[2026-03-30T07:53:57.712Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: gen-8YwTr5RS, gen-LLdJH3M8, gen-n13yfk5d, gen-w_UpPZZ3
+[2026-03-30T07:53:57.713Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 1, turnCount: 0
+[2026-03-30T07:54:04.381Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 0, Actions: 0, hadContent: false, turnCount: 0
+ POST /api/chat 200 in 6.7s (compile: 4ms, render: 6.7s)
+ GET / 200 in 35ms (compile: 5ms, render: 30ms)
+ POST /api/generate/scene-content 200 in 4.6min (compile: 3ms, render: 4.6min)
+ GET /generation-preview 200 in 37ms (compile: 6ms, render: 31ms)
+[2026-03-30T07:57:00.678Z] [INFO] [Agent Profiles API] Generating agent profiles for "从零开始学python，30分钟写出一个程序" [model=glm:glm-5]
+ POST /api/generate/agent-profiles 500 in 6.5s (compile: 3ms, render: 6.5s)
+[2026-03-30T07:57:07.197Z] [INFO] [Outlines Stream] Generating outlines: "从零开始学python，30分钟写出一个程序" [model=glm:glm-5]
+ POST /api/generate/scene-outlines-stream 200 in 102s (compile: 3ms, render: 102s)
+[2026-03-30T07:58:49.614Z] [INFO] [Scene Content API] Generating content: "课程介绍：30分钟写出你的第一个程序" (slide) [model=glm:glm-5]
+[2026-03-30T08:02:45.899Z] [INFO] [Scene Content API] Content generated successfully: "课程介绍：30分钟写出你的第一个程序"
+ POST /api/generate/scene-content 200 in 3.9min (compile: 6ms, render: 3.9min)
+[2026-03-30T08:02:45.925Z] [INFO] [Scene Actions API] Generating actions: "课程介绍：30分钟写出你的第一个程序" (slide) [model=glm:glm-5]
+[2026-03-30T08:03:29.309Z] [INFO] [Scene Actions API] Generated 14 actions for: "课程介绍：30分钟写出你的第一个程序"
+[2026-03-30T08:03:29.313Z] [INFO] [Scene Actions API] Scene assembled successfully: "课程介绍：30分钟写出你的第一个程序" — 14 actions
+ POST /api/generate/scene-actions 200 in 43s (compile: 5ms, render: 43s)
+ GET /classroom/_XMP8DWO1Q 200 in 81ms (compile: 25ms, render: 56ms)
+[2026-03-30T08:03:29.611Z] [INFO] [Scene Content API] Generating content: "Python是什么？为什么选择Python？" (slide) [model=glm:glm-5]
+[2026-03-30T08:03:30.081Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 696ms (compile: 474ms, render: 223ms)
+[2026-03-30T08:03:30.341Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="An infographic showing Python language applications with icons: web development,...", size=1024x576
+ POST /api/generate/image 500 in 97ms (compile: 5ms, render: 92ms)
+[2026-03-30T08:03:30.453Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A screenshot-style illustration of an online Python code editor interface with c...", size=1024x576
+ POST /api/generate/image 500 in 88ms (compile: 3ms, render: 84ms)
+[2026-03-30T08:03:30.553Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A code display showing print('Hello, World!') with syntax highlighting, and an o...", size=1024x576
+ POST /api/generate/image 500 in 92ms (compile: 3ms, render: 89ms)
+[2026-03-30T08:03:30.660Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="An illustration showing variable concept: labeled boxes containing different typ...", size=1024x576
+ POST /api/generate/image 500 in 90ms (compile: 1845µs, render: 88ms)
+[2026-03-30T08:03:30.772Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A diagram showing input-process-output flow: user input arrow going into a progr...", size=1024x576
+ POST /api/generate/image 500 in 98ms (compile: 5ms, render: 93ms)
+[2026-03-30T08:03:30.882Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A flowchart diagram showing if-else decision structure: diamond shape for condit...", size=1024x576
+ POST /api/generate/image 500 in 93ms (compile: 4ms, render: 89ms)
+[2026-03-30T08:03:30.990Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="An illustration of a number guessing game concept: question marks, numbers 1-100...", size=1024x576
+ POST /api/generate/image 500 in 93ms (compile: 4ms, render: 89ms)
+[2026-03-30T08:03:31.094Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A code editor display showing a complete Python guessing game code with syntax h...", size=1024x576
+ POST /api/generate/image 500 in 85ms (compile: 4ms, render: 81ms)
+[2026-03-30T08:03:31.199Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A summary infographic showing Python key concepts icons: import/module, while lo...", size=1024x576
+ POST /api/generate/image 500 in 95ms (compile: 4ms, render: 91ms)
+[2026-03-30T08:03:31.312Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="An illustration showing three challenge badges or levels with stars and achievem...", size=1024x576
+ POST /api/generate/image 500 in 95ms (compile: 4ms, render: 91ms)
+[2026-03-30T08:03:31.433Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A celebration illustration showing a beginner programmer with a trophy, Python l...", size=1024x576
+ POST /api/generate/image 500 in 92ms (compile: 4ms, render: 89ms)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+[2026-03-30T08:05:06.863Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 149ms (compile: 5ms, render: 144ms)
+[2026-03-30T08:05:08.097Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 154ms (compile: 4ms, render: 149ms)
+[2026-03-30T08:05:08.707Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 91ms (compile: 3ms, render: 88ms)
+[2026-03-30T08:05:08.888Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 87ms (compile: 3ms, render: 84ms)
+[2026-03-30T08:05:09.273Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 87ms (compile: 2ms, render: 85ms)
+[2026-03-30T08:05:09.553Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 83ms (compile: 2ms, render: 81ms)
+[2026-03-30T08:05:09.819Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 84ms (compile: 2ms, render: 81ms)
+[2026-03-30T08:05:10.052Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 91ms (compile: 2ms, render: 89ms)
+[2026-03-30T08:05:10.259Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 98ms (compile: 3ms, render: 95ms)
+[2026-03-30T08:05:10.620Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 84ms (compile: 2ms, render: 82ms)
+Persisting failed: Another write batch or compaction is already active (Only a single write operations is allowed at a time)
+[2026-03-30T08:07:27.587Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 153ms (compile: 5ms, render: 149ms)
+[2026-03-30T08:07:28.210Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 93ms (compile: 4ms, render: 89ms)
+[2026-03-30T08:07:28.560Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 95ms (compile: 3ms, render: 93ms)
+[2026-03-30T08:07:28.925Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 105ms (compile: 3ms, render: 102ms)
+[2026-03-30T08:07:29.275Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 88ms (compile: 2ms, render: 85ms)
+[2026-03-30T08:07:48.033Z] [INFO] [Scene Content API] Content generated successfully: "Python是什么？为什么选择Python？"
+ POST /api/generate/scene-content 200 in 4.3min (compile: 4ms, render: 4.3min)
+[2026-03-30T08:07:48.052Z] [INFO] [Scene Actions API] Generating actions: "Python是什么？为什么选择Python？" (slide) [model=glm:glm-5]
+[2026-03-30T08:07:51.343Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:07:51.345Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 1, Turn: 0
+[2026-03-30T08:07:51.346Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:07:51.347Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 1, turnCount: 0
+[2026-03-30T08:07:59.399Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:07:59.402Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-1"}
+[2026-03-30T08:07:59.404Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-1"
+[2026-03-30T08:08:02.441Z] [INFO] [DirectorGraph] [Director] Turn limit reached (1/1), ending
+[2026-03-30T08:08:02.445Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 1, hadContent: true, turnCount: 1
+ POST /api/chat 200 in 11.1s (compile: 3ms, render: 11.1s)
+[2026-03-30T08:08:12.733Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:08:12.736Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 2, Turn: 1
+[2026-03-30T08:08:12.737Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:08:12.738Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 2, turnCount: 1
+[2026-03-30T08:08:16.194Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:08:16.197Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-3"}
+[2026-03-30T08:08:16.198Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-3"
+[2026-03-30T08:08:22.480Z] [INFO] [ActionParser] Recovered malformed JSON via jsonrepair
+[2026-03-30T08:08:22.483Z] [INFO] [Scene Actions API] Generated 8 actions for: "Python是什么？为什么选择Python？"
+[2026-03-30T08:08:22.484Z] [INFO] [Scene Actions API] Scene assembled successfully: "Python是什么？为什么选择Python？" — 8 actions
+ POST /api/generate/scene-actions 200 in 34.4s (compile: 4ms, render: 34.4s)
+[2026-03-30T08:08:22.505Z] [INFO] [Scene Content API] Generating content: "环境准备：在线运行Python" (slide) [model=glm:glm-5]
+[2026-03-30T08:08:36.061Z] [INFO] [DirectorGraph] [Director] Turn limit reached (2/2), ending
+[2026-03-30T08:08:36.064Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 0, hadContent: true, turnCount: 2
+ POST /api/chat 200 in 23.3s (compile: 2ms, render: 23.3s)
+[2026-03-30T08:08:46.172Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:08:46.175Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 3, Turn: 2
+[2026-03-30T08:08:46.176Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:08:46.177Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 3, turnCount: 2
+ POST /api/chat 200 in 2.0s (compile: 4ms, render: 2.0s)
+[2026-03-30T08:08:48.219Z] [INFO] [Chat API] Request was aborted
+[2026-03-30T08:08:48.220Z] [INFO] [Chat API] Request aborted during streaming
+[2026-03-30T08:08:49.826Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:08:49.829Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-2"}
+[2026-03-30T08:08:49.830Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-2"
+[2026-03-30T08:09:13.904Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 160ms (compile: 2ms, render: 157ms)
+[2026-03-30T08:09:14.584Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 84ms (compile: 2ms, render: 82ms)
+[2026-03-30T08:09:14.770Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 87ms (compile: 3ms, render: 85ms)
+[2026-03-30T08:09:14.950Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 84ms (compile: 2ms, render: 82ms)
+[2026-03-30T08:09:15.101Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 99ms (compile: 2ms, render: 96ms)
+[2026-03-30T08:09:15.430Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 93ms (compile: 2ms, render: 91ms)
+[2026-03-30T08:09:15.582Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 113ms (compile: 4ms, render: 110ms)
+[2026-03-30T08:09:15.911Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 83ms (compile: 2ms, render: 81ms)
+[2026-03-30T08:09:16.094Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 91ms (compile: 3ms, render: 88ms)
+[2026-03-30T08:09:16.353Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 94ms (compile: 3ms, render: 91ms)
+[2026-03-30T08:09:16.577Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 86ms (compile: 3ms, render: 83ms)
+[2026-03-30T08:09:16.856Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 89ms (compile: 2ms, render: 86ms)
+[2026-03-30T08:09:17.021Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 93ms (compile: 2ms, render: 91ms)
+[2026-03-30T08:09:17.337Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 87ms (compile: 2ms, render: 85ms)
+[2026-03-30T08:09:17.489Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 93ms (compile: 3ms, render: 91ms)
+[2026-03-30T08:09:17.655Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 99ms (compile: 2ms, render: 97ms)
+[2026-03-30T08:09:18.412Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 96ms (compile: 3ms, render: 92ms)
+[2026-03-30T08:09:19.144Z] [INFO] [ImageGeneration API] Generating image: provider=seedream, model=doubao-seedream-4-0-250828, prompt="A friendly welcome illustration for Python programming course, featuring Python ...", size=1024x576
+ POST /api/generate/image 500 in 94ms (compile: 3ms, render: 91ms)
+[2026-03-30T08:12:34.213Z] [INFO] [Scene Content API] Content generated successfully: "环境准备：在线运行Python"
+ POST /api/generate/scene-content 200 in 4.2min (compile: 4ms, render: 4.2min)
+[2026-03-30T08:12:34.240Z] [INFO] [Scene Actions API] Generating actions: "环境准备：在线运行Python" (slide) [model=glm:glm-5]
+[2026-03-30T08:13:55.995Z] [INFO] [Scene Actions API] Generated 10 actions for: "环境准备：在线运行Python"
+[2026-03-30T08:13:55.996Z] [INFO] [Scene Actions API] Scene assembled successfully: "环境准备：在线运行Python" — 10 actions
+ POST /api/generate/scene-actions 200 in 82s (compile: 5ms, render: 82s)
+[2026-03-30T08:13:56.013Z] [INFO] [Scene Content API] Generating content: "第一个程序：Hello World" (slide) [model=glm:glm-5]
+ GET / 200 in 52ms (compile: 11ms, render: 41ms)
+ POST /api/generate/scene-content 200 in 16.4s (compile: 4ms, render: 16.4s)
+ GET /classroom/dCw7e-wThO 200 in 61ms (compile: 19ms, render: 42ms)
+[2026-03-30T08:14:15.647Z] [INFO] [Scene Content API] Generating content: "What is LangChain?" (slide) [model=glm:glm-5]
+ GET / 200 in 34ms (compile: 4ms, render: 30ms)
+ POST /api/generate/scene-content 200 in 2.2s (compile: 4ms, render: 2.2s)
+ GET /classroom/_XMP8DWO1Q 200 in 81ms (compile: 22ms, render: 59ms)
+[2026-03-30T08:19:35.360Z] [INFO] [Scene Content API] Generating content: "第一个程序：Hello World" (slide) [model=glm:glm-5]
+ POST /api/generate/scene-content 500 in 6.9s (compile: 3ms, render: 6.9s)
+[2026-03-30T08:23:06.557Z] [INFO] [Scene Content API] Generating content: "第一个程序：Hello World" (slide) [model=glm:glm-5]
+[2026-03-30T08:26:58.513Z] [INFO] [Scene Content API] Content generated successfully: "第一个程序：Hello World"
+ POST /api/generate/scene-content 200 in 3.9min (compile: 6ms, render: 3.9min)
+[2026-03-30T08:26:58.570Z] [INFO] [Scene Actions API] Generating actions: "第一个程序：Hello World" (slide) [model=glm:glm-5]
+[2026-03-30T08:27:31.140Z] [INFO] [Scene Actions API] Generated 9 actions for: "第一个程序：Hello World"
+[2026-03-30T08:27:31.142Z] [INFO] [Scene Actions API] Scene assembled successfully: "第一个程序：Hello World" — 9 actions
+ POST /api/generate/scene-actions 200 in 32.6s (compile: 6ms, render: 32.6s)
+[2026-03-30T08:27:31.168Z] [INFO] [Scene Content API] Generating content: "小测验：基础概念检查" (quiz) [model=glm:glm-5]
+[2026-03-30T08:28:07.077Z] [INFO] [Scene Content API] Content generated successfully: "小测验：基础概念检查"
+ POST /api/generate/scene-content 200 in 35.9s (compile: 4ms, render: 35.9s)
+[2026-03-30T08:28:07.105Z] [INFO] [Scene Actions API] Generating actions: "小测验：基础概念检查" (quiz) [model=glm:glm-5]
+[2026-03-30T08:28:31.728Z] [INFO] [Scene Actions API] Generated 5 actions for: "小测验：基础概念检查"
+[2026-03-30T08:28:31.730Z] [INFO] [Scene Actions API] Scene assembled successfully: "小测验：基础概念检查" — 5 actions
+ POST /api/generate/scene-actions 200 in 24.6s (compile: 3ms, render: 24.6s)
+[2026-03-30T08:28:31.752Z] [INFO] [Scene Content API] Generating content: "变量：给数据起个名字" (slide) [model=glm:glm-5]
+[2026-03-30T08:43:12.621Z] [INFO] [Scene Content API] Content generated successfully: "变量：给数据起个名字"
+ POST /api/generate/scene-content 200 in 14.7min (compile: 4ms, render: 14.7min)
+[2026-03-30T08:43:12.649Z] [INFO] [Scene Actions API] Generating actions: "变量：给数据起个名字" (slide) [model=glm:glm-5]
+[2026-03-30T08:43:48.910Z] [INFO] [ActionParser] Recovered malformed JSON via jsonrepair
+[2026-03-30T08:43:48.912Z] [INFO] [Scene Actions API] Generated 9 actions for: "变量：给数据起个名字"
+[2026-03-30T08:43:48.913Z] [INFO] [Scene Actions API] Scene assembled successfully: "变量：给数据起个名字" — 9 actions
+ POST /api/generate/scene-actions 200 in 36.3s (compile: 5ms, render: 36.3s)
+[2026-03-30T08:43:48.945Z] [INFO] [Scene Content API] Generating content: "输入与输出：与程序对话" (slide) [model=glm:glm-5]
+[2026-03-30T08:43:49.541Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:43:49.542Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 1, Turn: 0
+[2026-03-30T08:43:49.543Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:43:49.543Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 1, turnCount: 0
+[2026-03-30T08:43:52.334Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:43:52.341Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-1"}
+[2026-03-30T08:43:52.343Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-1"
+[2026-03-30T08:44:02.057Z] [INFO] [DirectorGraph] [Director] Turn limit reached (1/1), ending
+[2026-03-30T08:44:02.062Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 0, hadContent: true, turnCount: 1
+ POST /api/chat 200 in 12.5s (compile: 2ms, render: 12.5s)
+[2026-03-30T08:44:21.386Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:44:21.387Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 2, Turn: 1
+[2026-03-30T08:44:21.389Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:44:21.390Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 2, turnCount: 1
+[2026-03-30T08:44:22.685Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:44:22.688Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-3"}
+[2026-03-30T08:44:22.689Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-3"
+[2026-03-30T08:44:29.401Z] [INFO] [DirectorGraph] [Director] Turn limit reached (2/2), ending
+[2026-03-30T08:44:29.404Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 0, hadContent: true, turnCount: 2
+ POST /api/chat 200 in 8.0s (compile: 5ms, render: 8.0s)
+[2026-03-30T08:44:42.320Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:44:42.322Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 3, Turn: 2
+[2026-03-30T08:44:42.323Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:44:42.324Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 3, turnCount: 2
+[2026-03-30T08:44:56.859Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:44:56.860Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-2"}
+[2026-03-30T08:44:56.861Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-2"
+[2026-03-30T08:45:01.325Z] [INFO] [DirectorGraph] [Director] Turn limit reached (3/3), ending
+[2026-03-30T08:45:01.328Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 0, hadContent: true, turnCount: 3
+ POST /api/chat 200 in 19.0s (compile: 4ms, render: 19.0s)
+[2026-03-30T08:45:29.281Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:45:29.282Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 5, Turn: 0
+[2026-03-30T08:45:29.283Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:45:29.284Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 5, turnCount: 0
+[2026-03-30T08:45:30.895Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:45:30.899Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-1"}
+[2026-03-30T08:45:30.900Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-1"
+[2026-03-30T08:45:43.904Z] [INFO] [DirectorGraph] [Director] Turn limit reached (1/1), ending
+[2026-03-30T08:45:43.911Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 11, hadContent: true, turnCount: 1
+ POST /api/chat 200 in 14.6s (compile: 3ms, render: 14.6s)
+[2026-03-30T08:46:00.119Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:46:00.120Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 6, Turn: 1
+[2026-03-30T08:46:00.122Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:46:00.123Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 6, turnCount: 1
+[2026-03-30T08:46:01.866Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:46:01.869Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-3"}
+[2026-03-30T08:46:01.871Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-3"
+[2026-03-30T08:46:07.704Z] [INFO] [DirectorGraph] [Director] Turn limit reached (2/2), ending
+[2026-03-30T08:46:07.709Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 0, hadContent: true, turnCount: 2
+ POST /api/chat 200 in 7.6s (compile: 5ms, render: 7.6s)
+[2026-03-30T08:46:31.626Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:46:31.627Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 8, Turn: 0
+[2026-03-30T08:46:31.628Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:46:31.629Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 8, turnCount: 0
+[2026-03-30T08:46:37.570Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:46:37.572Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-1"}
+[2026-03-30T08:46:37.573Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-1"
+[2026-03-30T08:46:44.593Z] [INFO] [DirectorGraph] [Director] Turn limit reached (1/1), ending
+[2026-03-30T08:46:44.601Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 1, hadContent: true, turnCount: 1
+ POST /api/chat 200 in 13.0s (compile: 4ms, render: 13.0s)
+[2026-03-30T08:46:55.358Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:46:55.361Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 10, Turn: 0
+[2026-03-30T08:46:55.363Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:46:55.363Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 10, turnCount: 0
+[2026-03-30T08:47:04.203Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:47:04.208Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-1"}
+[2026-03-30T08:47:04.210Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-1"
+[2026-03-30T08:47:09.430Z] [INFO] [DirectorGraph] [Director] Turn limit reached (1/1), ending
+[2026-03-30T08:47:09.433Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 0, hadContent: true, turnCount: 1
+ POST /api/chat 200 in 14.1s (compile: 3ms, render: 14.1s)
+[2026-03-30T08:47:30.056Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:47:30.057Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 11, Turn: 1
+[2026-03-30T08:47:30.059Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:47:30.061Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 11, turnCount: 1
+[2026-03-30T08:47:31.316Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":21}
+[2026-03-30T08:47:31.319Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"USER"}
+[2026-03-30T08:47:31.321Z] [INFO] [DirectorGraph] [Director] Decision: cue USER to speak
+[2026-03-30T08:47:31.326Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 0, Actions: 0, hadContent: false, turnCount: 1
+ POST /api/chat 200 in 1280ms (compile: 3ms, render: 1277ms)
+[2026-03-30T08:48:02.997Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:48:02.998Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 12, Turn: 0
+[2026-03-30T08:48:03.000Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:48:03.001Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 12, turnCount: 0
+[2026-03-30T08:48:05.829Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:48:05.832Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-1"}
+[2026-03-30T08:48:05.835Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-1"
+[2026-03-30T08:48:18.041Z] [INFO] [DirectorGraph] [Director] Turn limit reached (1/1), ending
+[2026-03-30T08:48:18.046Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 4, hadContent: true, turnCount: 1
+ POST /api/chat 200 in 15.1s (compile: 6ms, render: 15.1s)
+[2026-03-30T08:48:40.875Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:48:40.876Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 13, Turn: 1
+[2026-03-30T08:48:40.877Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:48:40.878Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 13, turnCount: 1
+[2026-03-30T08:48:45.719Z] [INFO] [AISdkAdapter] [AI SDK Adapter] Response: {"textLength":26}
+[2026-03-30T08:48:45.721Z] [INFO] [DirectorGraph] [Director] Raw decision: {"next_agent":"default-3"}
+[2026-03-30T08:48:45.723Z] [INFO] [DirectorGraph] [Director] Decision: dispatch agent "default-3"
+[2026-03-30T08:48:53.514Z] [INFO] [DirectorGraph] [Director] Turn limit reached (2/2), ending
+[2026-03-30T08:48:53.518Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 1, Actions: 0, hadContent: true, turnCount: 2
+ POST /api/chat 200 in 12.7s (compile: 5ms, render: 12.7s)
+[2026-03-30T08:49:04.918Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:49:04.920Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 14, Turn: 2
+[2026-03-30T08:49:04.921Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:49:04.923Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 14, turnCount: 2
+[2026-03-30T08:49:11.640Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 0, Actions: 0, hadContent: false, turnCount: 2
+ POST /api/chat 200 in 6.7s (compile: 3ms, render: 6.7s)
+[2026-03-30T08:49:39.265Z] [INFO] [Chat API] Processing request
+[2026-03-30T08:49:39.266Z] [INFO] [Chat API] Agents: default-1, default-2, default-3, Messages: 1, Turn: 0
+[2026-03-30T08:49:39.267Z] [INFO] [StatelessGenerate] [StatelessGenerate] Starting orchestration for agents: default-1, default-2, default-3
+[2026-03-30T08:49:39.268Z] [INFO] [StatelessGenerate] [StatelessGenerate] Message count: 1, turnCount: 0
+[2026-03-30T08:49:45.711Z] [INFO] [StatelessGenerate] [StatelessGenerate] Completed. Agents: 0, Actions: 0, hadContent: false, turnCount: 0
+ POST /api/chat 200 in 6.5s (compile: 3ms, render: 6.5s)
+[2026-03-30T08:53:35.711Z] [INFO] [Scene Content API] Content generated successfully: "输入与输出：与程序对话"
+ POST /api/generate/scene-content 200 in 9.8min (compile: 4ms, render: 9.8min)
+[2026-03-30T08:53:35.765Z] [INFO] [Scene Actions API] Generating actions: "输入与输出：与程序对话" (slide) [model=glm:glm-5]
+[2026-03-30T08:54:11.354Z] [INFO] [ActionParser] Recovered malformed JSON via jsonrepair
+[2026-03-30T08:54:11.356Z] [INFO] [Scene Actions API] Generated 8 actions for: "输入与输出：与程序对话"
+[2026-03-30T08:54:11.358Z] [INFO] [Scene Actions API] Scene assembled successfully: "输入与输出：与程序对话" — 8 actions
+ POST /api/generate/scene-actions 200 in 35.6s (compile: 8ms, render: 35.6s)
+[2026-03-30T08:54:11.395Z] [INFO] [Scene Content API] Generating content: "条件判断：让程序做选择" (slide) [model=glm:glm-5]
+[2026-03-30T08:58:32.980Z] [INFO] [Scene Content API] Content generated successfully: "条件判断：让程序做选择"
+ POST /api/generate/scene-content 200 in 4.4min (compile: 4ms, render: 4.4min)
+[2026-03-30T08:58:33.012Z] [INFO] [Scene Actions API] Generating actions: "条件判断：让程序做选择" (slide) [model=glm:glm-5]
+[2026-03-30T08:59:07.347Z] [INFO] [ActionParser] Recovered malformed JSON via jsonrepair
+[2026-03-30T08:59:07.350Z] [INFO] [Scene Actions API] Generated 9 actions for: "条件判断：让程序做选择"
+[2026-03-30T08:59:07.352Z] [INFO] [Scene Actions API] Scene assembled successfully: "条件判断：让程序做选择" — 9 actions
+ POST /api/generate/scene-actions 200 in 34.4s (compile: 5ms, render: 34.4s)
+[2026-03-30T08:59:07.397Z] [INFO] [Scene Content API] Generating content: "小测验：条件判断练习" (quiz) [model=glm:glm-5]
+[2026-03-30T09:00:17.170Z] [INFO] [Scene Content API] Content generated successfully: "小测验：条件判断练习"
+ POST /api/generate/scene-content 200 in 70s (compile: 6ms, render: 70s)
+[2026-03-30T09:00:17.203Z] [INFO] [Scene Actions API] Generating actions: "小测验：条件判断练习" (quiz) [model=glm:glm-5]
+[2026-03-30T09:00:35.555Z] [INFO] [Scene Actions API] Generated 5 actions for: "小测验：条件判断练习"
+[2026-03-30T09:00:35.558Z] [INFO] [Scene Actions API] Scene assembled successfully: "小测验：条件判断练习" — 5 actions
+ POST /api/generate/scene-actions 200 in 18.4s (compile: 6ms, render: 18.4s)
+[2026-03-30T09:00:35.584Z] [INFO] [Scene Content API] Generating content: "实战项目：猜数字游戏" (slide) [model=glm:glm-5]
+[2026-03-30T09:03:40.390Z] [INFO] [Scene Content API] Content generated successfully: "实战项目：猜数字游戏"
+ POST /api/generate/scene-content 200 in 3.1min (compile: 5ms, render: 3.1min)
+[2026-03-30T09:03:40.410Z] [INFO] [Scene Actions API] Generating actions: "实战项目：猜数字游戏" (slide) [model=glm:glm-5]
+[2026-03-30T09:04:52.426Z] [INFO] [Scene Actions API] Generated 9 actions for: "实战项目：猜数字游戏"
+[2026-03-30T09:04:52.429Z] [INFO] [Scene Actions API] Scene assembled successfully: "实战项目：猜数字游戏" — 9 actions
+ POST /api/generate/scene-actions 200 in 72s (compile: 3ms, render: 72s)
+[2026-03-30T09:04:52.450Z] [INFO] [Scene Content API] Generating content: "项目实现：完整代码" (slide) [model=glm:glm-5]
+[2026-03-30T09:17:31.921Z] [INFO] [Scene Content API] Content generated successfully: "项目实现：完整代码"
+ POST /api/generate/scene-content 200 in 12.7min (compile: 4ms, render: 12.7min)
+[2026-03-30T09:17:31.960Z] [INFO] [Scene Actions API] Generating actions: "项目实现：完整代码" (slide) [model=glm:glm-5]
+[2026-03-30T09:18:03.208Z] [INFO] [Scene Actions API] Generated 9 actions for: "项目实现：完整代码"
+[2026-03-30T09:18:03.211Z] [INFO] [Scene Actions API] Scene assembled successfully: "项目实现：完整代码" — 9 actions
+ POST /api/generate/scene-actions 200 in 31.3s (compile: 6ms, render: 31.3s)
+[2026-03-30T09:18:03.256Z] [INFO] [Scene Content API] Generating content: "互动体验：代码执行流程" (interactive) [model=glm:glm-5]
+[2026-03-30T09:18:03.259Z] [INFO] [Generation] Step 1: Scientific modeling for: 互动体验：代码执行流程
+[2026-03-30T09:18:32.322Z] [INFO] [Generation] Scientific model: 5 formulas, 5 constraints
+[2026-03-30T09:18:32.327Z] [INFO] [Generation] Step 2: Generating HTML for: 互动体验：代码执行流程
+[2026-03-30T09:21:31.250Z] [INFO] [Generation] Post-processed HTML (30075 chars) for: 互动体验：代码执行流程
+[2026-03-30T09:21:31.251Z] [INFO] [Scene Content API] Content generated successfully: "互动体验：代码执行流程"
+ POST /api/generate/scene-content 200 in 3.5min (compile: 9ms, render: 3.5min)
+[2026-03-30T09:21:31.287Z] [INFO] [Scene Actions API] Generating actions: "互动体验：代码执行流程" (interactive) [model=glm:glm-5]
+[2026-03-30T09:21:48.758Z] [INFO] [Scene Actions API] Generated 5 actions for: "互动体验：代码执行流程"
+[2026-03-30T09:21:48.759Z] [INFO] [Scene Actions API] Scene assembled successfully: "互动体验：代码执行流程" — 5 actions
+ POST /api/generate/scene-actions 200 in 17.5s (compile: 7ms, render: 17.5s)
+[2026-03-30T09:21:48.781Z] [INFO] [Scene Content API] Generating content: "代码解析：核心知识点回顾" (slide) [model=glm:glm-5]
+[2026-03-30T09:23:49.164Z] [INFO] [Scene Content API] Content generated successfully: "代码解析：核心知识点回顾"
+ POST /api/generate/scene-content 200 in 2.0min (compile: 4ms, render: 2.0min)
+[2026-03-30T09:23:49.199Z] [INFO] [Scene Actions API] Generating actions: "代码解析：核心知识点回顾" (slide) [model=glm:glm-5]
+[2026-03-30T09:24:13.674Z] [INFO] [Scene Actions API] Generated 12 actions for: "代码解析：核心知识点回顾"
+[2026-03-30T09:24:13.677Z] [INFO] [Scene Actions API] Scene assembled successfully: "代码解析：核心知识点回顾" — 12 actions
+ POST /api/generate/scene-actions 200 in 24.5s (compile: 4ms, render: 24.5s)
+[2026-03-30T09:24:13.697Z] [INFO] [Scene Content API] Generating content: "拓展挑战：让程序更强大" (slide) [model=glm:glm-5]
+[2026-03-30T09:33:53.571Z] [INFO] [Scene Content API] Content generated successfully: "拓展挑战：让程序更强大"
+ POST /api/generate/scene-content 200 in 9.7min (compile: 4ms, render: 9.7min)
+[2026-03-30T09:33:53.611Z] [INFO] [Scene Actions API] Generating actions: "拓展挑战：让程序更强大" (slide) [model=glm:glm-5]
+ POST /api/generate/scene-actions 500 in 6.1min (compile: 8ms, render: 6.1min)
+ ELIFECYCLE  Command failed with exit code 3221225786.
