@@ -251,7 +251,9 @@
     }
   },
   "share": {
-    "notReady": "生成完成后可分享"
+    "notReady": "生成完成后可分享",
+    "copyLink": "复制课程链接",
+    "copied": "已复制！"
   },
   "classroom": {
     "recentClassrooms": "最近学习",

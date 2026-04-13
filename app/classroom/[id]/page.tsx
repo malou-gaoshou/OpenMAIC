@@ -170,6 +170,14 @@ export default function ClassroomDetailPage() {
       // All scenes are generated, but some media may not have finished.
       // Resume media generation for any tasks not yet in IndexedDB.
       // generateMediaForOutlines skips already-completed tasks automatically.
+      //
+      // Skip auto-resume for shared link users (no sessionStorage data).
+      // Only resume if the original user with sessionStorage is accessing.
+      const genParamsStr = sessionStorage.getItem('generationParams');
+      if (!genParamsStr) {
+        log.info('[Classroom] Shared link access, skipping auto-resume');
+        return;
+      }
       generationStartedRef.current = true;
       generateMediaForOutlines(outlines, stage.id).catch((err) => {
         log.warn('[Classroom] Media generation resume error:', err);

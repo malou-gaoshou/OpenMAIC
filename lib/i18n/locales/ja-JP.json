@@ -251,7 +251,9 @@
     }
   },
   "share": {
-    "notReady": "生成完了後に利用できます"
+    "notReady": "生成完了後に利用可能",
+    "copyLink": "コースリンクをコピー",
+    "copied": "コピー完了！"
   },
   "classroom": {
     "recentClassrooms": "最近の教室",

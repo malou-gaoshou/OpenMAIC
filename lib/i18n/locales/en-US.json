@@ -251,7 +251,9 @@
     }
   },
   "share": {
-    "notReady": "Available after generation completes"
+    "notReady": "Available after generation completes",
+    "copyLink": "Copy course link",
+    "copied": "Copied!"
   },
   "classroom": {
     "recentClassrooms": "Recent",

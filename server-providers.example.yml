@@ -1,0 +1,29 @@
+# =============================================================================
+# Server-side Provider Configuration 示例文件
+# 复制此文件为 server-providers.yml 并填入你的 API Keys
+# 此文件会被 .gitignore 忽略，不会提交到 GitHub
+# =============================================================================
+
+# --- LLM (Language Model) ----------------------------------------------------
+providers:
+  glm:
+    apiKey: YOUR_GLM_API_KEY
+    baseUrl: https://open.bigmodel.cn/api/paas/v4
+    models:
+      - glm-5
+
+# --- Image Generation --------------------------------------------------------
+image:
+  nano-banana:
+    apiKey: YOUR_NANO_BANANA_API_KEY
+    baseUrl: https://api.vectorengine.ai
+    models:
+      - gemini-3.1-flash-image
+
+# --- Video Generation --------------------------------------------------------
+video:
+  seedance:
+    apiKey: YOUR_SEEDANCE_API_KEY
+    baseUrl: https://ark.cn-beijing.volces.com/api/v3/chat/completions
+    models:
+      - doubao-seedance-1-5-pro-251215
