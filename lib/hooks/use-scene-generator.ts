@@ -42,7 +42,6 @@ function getApiHeaders(): HeadersInit {
     'x-api-key': config.apiKey || '',
     'x-base-url': config.baseUrl || '',
     'x-provider-type': config.providerType || '',
-    'x-requires-api-key': String(config.requiresApiKey ?? false),
     // Image generation provider
     'x-image-provider': settings.imageProviderId || '',
     'x-image-model': settings.imageModelId || '',
@@ -137,10 +136,12 @@ export async function generateAndStoreTTS(
       text,
       audioId,
       ttsProviderId: settings.ttsProviderId,
+      ttsModelId: ttsProviderConfig?.modelId,
       ttsVoice: settings.ttsVoice,
       ttsSpeed: settings.ttsSpeed,
       ttsApiKey: ttsProviderConfig?.apiKey || undefined,
-      ttsBaseUrl: ttsProviderConfig?.baseUrl || undefined,
+      ttsBaseUrl:
+        ttsProviderConfig?.baseUrl || ttsProviderConfig?.customDefaultBaseUrl || undefined,
     }),
     signal,
   });

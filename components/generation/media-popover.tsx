@@ -32,10 +32,11 @@ import { useSettingsStore } from '@/lib/store/settings';
 import { useTTSPreview } from '@/lib/audio/use-tts-preview';
 import { IMAGE_PROVIDERS } from '@/lib/media/image-providers';
 import { VIDEO_PROVIDERS } from '@/lib/media/video-providers';
-import { TTS_PROVIDERS, getTTSVoices } from '@/lib/audio/constants';
+import { TTS_PROVIDERS, getTTSVoices, CUSTOM_ASR_DEFAULT_LANGUAGES } from '@/lib/audio/constants';
 import { ASR_PROVIDERS, getASRSupportedLanguages } from '@/lib/audio/constants';
 import type { ImageProviderId, VideoProviderId } from '@/lib/media/types';
 import type { TTSProviderId, ASRProviderId } from '@/lib/audio/types';
+import { isCustomASRProvider } from '@/lib/audio/types';
 import type { SettingsSection } from '@/lib/types/settings';
 
 interface MediaPopoverProps {
@@ -90,6 +91,7 @@ function getTTSProviderName(providerId: TTSProviderId, t: (key: string) => strin
     'qwen-tts': t('settings.providerQwenTTS'),
     'doubao-tts': t('settings.providerDoubaoTTS'),
     'elevenlabs-tts': t('settings.providerElevenLabsTTS'),
+    'minimax-tts': t('settings.providerMiniMaxTTS'),
     'browser-native-tts': t('settings.providerBrowserNativeTTS'),
   };
   return names[providerId] || providerId;
@@ -165,8 +167,6 @@ export function MediaPopover({ onSettingsOpen }: MediaPopoverProps) {
     id: string,
     needsKey: boolean,
   ) => !needsKey || !!configs[id]?.apiKey || !!configs[id]?.isServerConfigured;
-
-  const ttsSpeedRange = TTS_PROVIDERS[ttsProviderId]?.speedRange;
 
   // ─── Dynamic browser voices ───
   const [browserVoices, setBrowserVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -270,10 +270,11 @@ export function MediaPopover({ onSettingsOpen }: MediaPopoverProps) {
       await startPreview({
         text: t('settings.ttsTestTextDefault'),
         providerId: ttsProviderId,
+        modelId: providerConfig?.modelId,
         voice: ttsVoice,
         speed: ttsSpeed,
         apiKey: providerConfig?.apiKey,
-        baseUrl: providerConfig?.baseUrl,
+        baseUrl: providerConfig?.baseUrl || providerConfig?.customDefaultBaseUrl,
       });
     } catch (error) {
       const message =
@@ -291,23 +292,41 @@ export function MediaPopover({ onSettingsOpen }: MediaPopoverProps) {
     ttsVoice,
   ]);
 
-  // ASR: only available providers
-  const asrGroups = useMemo(
-    () =>
-      Object.values(ASR_PROVIDERS)
-        .filter((p) => cfgOk(asrProvidersConfig, p.id, p.requiresApiKey))
-        .map((p) => ({
-          groupId: p.id,
-          groupName: p.name,
-          groupIcon: p.icon,
-          available: true,
-          items: getASRSupportedLanguages(p.id).map((l) => ({
-            id: l,
-            name: l,
-          })),
+  // ASR: built-in + custom providers
+  const asrGroups = useMemo(() => {
+    const groups: SelectGroupData[] = [];
+
+    // Built-in providers
+    for (const p of Object.values(ASR_PROVIDERS)) {
+      if (!cfgOk(asrProvidersConfig, p.id, p.requiresApiKey)) continue;
+      groups.push({
+        groupId: p.id,
+        groupName: p.name,
+        groupIcon: p.icon,
+        available: true,
+        items: getASRSupportedLanguages(p.id).map((l) => ({
+          id: l,
+          name: l,
         })),
-    [asrProvidersConfig],
-  );
+      });
+    }
+
+    // Custom providers — only show if at least one model is configured
+    for (const [id, cfg] of Object.entries(asrProvidersConfig)) {
+      if (!isCustomASRProvider(id)) continue;
+      const customModels = cfg.customModels || [];
+      if (customModels.length === 0) continue;
+      const providerName = cfg.customName || id;
+      groups.push({
+        groupId: id,
+        groupName: providerName,
+        available: true,
+        items: CUSTOM_ASR_DEFAULT_LANGUAGES.map((l) => ({ id: l, name: l })),
+      });
+    }
+
+    return groups;
+  }, [asrProvidersConfig]);
 
   // Auto-select first enabled tab on open
   const handleOpenChange = (isOpen: boolean) => {

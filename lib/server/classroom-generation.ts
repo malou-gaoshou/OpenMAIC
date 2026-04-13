@@ -16,9 +16,10 @@ import type { AgentInfo } from '@/lib/generation/pipeline-types';
 import { formatTeacherPersonaForPrompt } from '@/lib/generation/prompt-formatters';
 import { getDefaultAgents } from '@/lib/orchestration/registry/store';
 import { createLogger } from '@/lib/logger';
-import { parseModelString } from '@/lib/ai/providers';
-import { resolveApiKey, resolveWebSearchApiKey } from '@/lib/server/provider-config';
+import { isProviderKeyRequired } from '@/lib/ai/providers';
+import { resolveWebSearchApiKey } from '@/lib/server/provider-config';
 import { resolveModel } from '@/lib/server/resolve-model';
+import { buildSearchQuery } from '@/lib/server/search-query-builder';
 import { searchWithTavily, formatSearchResultsAsContext } from '@/lib/web-search/tavily';
 import { persistClassroom } from '@/lib/server/classroom-storage';
 import {
@@ -28,6 +29,7 @@ import {
 } from '@/lib/server/classroom-media-generation';
 import type { UserRequirements } from '@/lib/types/generation';
 import type { Scene, Stage } from '@/lib/types/stage';
+import { AGENT_COLOR_PALETTE, AGENT_DEFAULT_AVATARS } from '@/lib/constants/agent-defaults';
 
 const log = createLogger('Classroom');
 
@@ -175,13 +177,17 @@ export async function generateClassroom(
     scenesGenerated: 0,
   });
 
-  const { model: languageModel, modelInfo, modelString } = resolveModel({});
+  const {
+    model: languageModel,
+    modelInfo,
+    modelString,
+    providerId,
+    apiKey,
+  } = await resolveModel({});
   log.info(`Using server-configured model: ${modelString}`);
 
   // Fail fast if the resolved provider has no API key configured
-  const { providerId } = parseModelString(modelString);
-  const apiKey = resolveApiKey(providerId);
-  if (!apiKey) {
+  if (isProviderKeyRequired(providerId) && !apiKey) {
     throw new Error(
       `No API key configured for provider "${providerId}". ` +
         `Set the appropriate key in .env.local or server-providers.yml (e.g. ${providerId.toUpperCase()}_API_KEY).`,
@@ -203,6 +209,21 @@ export async function generateClassroom(
     return result.text;
   };
 
+  const searchQueryAiCall: AICallFn = async (systemPrompt, userPrompt, _images) => {
+    const result = await callLLM(
+      {
+        model: languageModel,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        maxOutputTokens: 256,
+      },
+      'web-search-query-rewrite',
+    );
+    return result.text;
+  };
+
   const lang = normalizeLanguage(input.language);
   const requirements: UserRequirements = {
     requirement,
@@ -212,7 +233,7 @@ export async function generateClassroom(
 
   // Resolve agents based on agentMode
   let agents: AgentInfo[];
-  const agentMode = input.agentMode || 'default';
+  let agentMode = input.agentMode || 'default';
   if (agentMode === 'generate') {
     log.info('Generating custom agent profiles via LLM...');
     try {
@@ -221,6 +242,7 @@ export async function generateClassroom(
     } catch (e) {
       log.warn('Agent profile generation failed, falling back to defaults:', e);
       agents = getDefaultAgents();
+      agentMode = 'default';
     }
   } else {
     agents = getDefaultAgents();
@@ -240,8 +262,19 @@ export async function generateClassroom(
     const tavilyKey = resolveWebSearchApiKey();
     if (tavilyKey) {
       try {
-        log.info('Running web search for requirement context...');
-        const searchResult = await searchWithTavily({ query: requirement, apiKey: tavilyKey });
+        const searchQuery = await buildSearchQuery(requirement, pdfText, searchQueryAiCall);
+
+        log.info('Running web search for classroom generation', {
+          hasPdfContext: searchQuery.hasPdfContext,
+          rawRequirementLength: searchQuery.rawRequirementLength,
+          rewriteAttempted: searchQuery.rewriteAttempted,
+          finalQueryLength: searchQuery.finalQueryLength,
+        });
+
+        const searchResult = await searchWithTavily({
+          query: searchQuery.query,
+          apiKey: tavilyKey,
+        });
         researchContext = formatSearchResultsAsContext(searchResult);
         if (researchContext) {
           log.info(`Web search returned ${searchResult.sources.length} sources`);
@@ -300,6 +333,24 @@ export async function generateClassroom(
     style: 'interactive',
     createdAt: Date.now(),
     updatedAt: Date.now(),
+    // For LLM-generated agents, embed full configs so the client can
+    // hydrate the agent registry without prior IndexedDB data.
+    // For default agents, just record IDs — the client already has them.
+    ...(agentMode === 'generate'
+      ? {
+          generatedAgentConfigs: agents.map((a, i) => ({
+            id: a.id,
+            name: a.name,
+            role: a.role,
+            persona: a.persona || '',
+            avatar: AGENT_DEFAULT_AVATARS[i % AGENT_DEFAULT_AVATARS.length],
+            color: AGENT_COLOR_PALETTE[i % AGENT_COLOR_PALETTE.length],
+            priority: a.role === 'teacher' ? 10 : a.role === 'assistant' ? 7 : 5,
+          })),
+        }
+      : {
+          agentIds: agents.map((a) => a.id),
+        }),
   };
 
   const store = createInMemoryStore(stage);

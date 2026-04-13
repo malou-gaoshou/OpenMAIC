@@ -51,6 +51,15 @@ export default function ClassroomDetailPage() {
                 currentSceneId: scenes[0]?.id ?? null,
               });
               log.info('Loaded from server-side storage:', classroomId);
+
+              // Hydrate server-generated agents into IndexedDB + registry.
+              // Don't set selectedAgentIds here — the general agent
+              // restoration logic below (Path 2) handles it uniformly.
+              if (stage.generatedAgentConfigs?.length) {
+                const { saveGeneratedAgents } = await import('@/lib/orchestration/registry/store');
+                await saveGeneratedAgents(stage.id, stage.generatedAgentConfigs);
+                log.info('Hydrated server-generated agents for stage:', stage.id);
+              }
             }
           }
         } catch (fetchErr) {

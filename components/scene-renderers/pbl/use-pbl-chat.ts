@@ -64,7 +64,6 @@ export function usePBLChat({ projectConfig, userRole, onConfigUpdate }: UsePBLCh
         };
         if (modelConfig.baseUrl) headers['x-base-url'] = modelConfig.baseUrl;
         if (modelConfig.providerType) headers['x-provider-type'] = modelConfig.providerType;
-        if (modelConfig.requiresApiKey) headers['x-requires-api-key'] = 'true';
 
         // Strip @mention prefix from message text if present
         const cleanMessage = text.replace(/^@\w+\s*/i, '').trim() || text;
@@ -165,7 +164,7 @@ async function handleIssueComplete(
   config: PBLProjectConfig,
   completedIssue: PBLIssue,
   headers: Record<string, string>,
-  t: (key: string) => string,
+  t: (key: string, options?: Record<string, unknown>) => string,
 ) {
   // Mark current issue as done
   const issue = config.issueboard.issues.find((i) => i.id === completedIssue.id);
@@ -226,9 +225,10 @@ async function handleIssueComplete(
           config.chat.messages.push({
             id: `msg_${Date.now()}_welcome`,
             agent_name: nextIssue.question_agent_name,
-            message: t('pbl.chat.welcomeMessage')
-              .replace('{title}', nextIssue.title)
-              .replace('{questions}', data.message),
+            message: t('pbl.chat.welcomeMessage', {
+              title: nextIssue.title,
+              questions: data.message,
+            }),
             timestamp: Date.now(),
             read_by: [],
           });
@@ -241,9 +241,10 @@ async function handleIssueComplete(
       config.chat.messages.push({
         id: `msg_${Date.now()}_welcome`,
         agent_name: nextIssue.question_agent_name,
-        message: t('pbl.chat.welcomeMessage')
-          .replace('{title}', nextIssue.title)
-          .replace('{questions}', nextIssue.generated_questions),
+        message: t('pbl.chat.welcomeMessage', {
+          title: nextIssue.title,
+          questions: nextIssue.generated_questions,
+        }),
         timestamp: Date.now(),
         read_by: [],
       });
@@ -253,9 +254,10 @@ async function handleIssueComplete(
     config.chat.messages.push({
       id: `msg_${Date.now()}_system`,
       agent_name: 'System',
-      message: t('pbl.chat.issueCompleteMessage')
-        .replace('{completed}', completedIssue.title)
-        .replace('{next}', nextIssue.title),
+      message: t('pbl.chat.issueCompleteMessage', {
+        completed: completedIssue.title,
+        next: nextIssue.title,
+      }),
       timestamp: Date.now(),
       read_by: [],
     });

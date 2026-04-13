@@ -101,7 +101,6 @@ function GenerationPreviewContent() {
       'x-api-key': modelConfig.apiKey,
       'x-base-url': modelConfig.baseUrl,
       'x-provider-type': modelConfig.providerType || '',
-      'x-requires-api-key': modelConfig.requiresApiKey ? 'true' : 'false',
       // Image generation provider
       'x-image-provider': settings.imageProviderId || '',
       'x-image-model': settings.imageModelId || '',
@@ -278,15 +277,11 @@ function GenerationPreviewContent() {
         // Truncation warnings
         const warnings: string[] = [];
         if ((parseResult.data.text as string).length > MAX_PDF_CONTENT_CHARS) {
-          warnings.push(
-            t('generation.textTruncated').replace('{n}', String(MAX_PDF_CONTENT_CHARS)),
-          );
+          warnings.push(t('generation.textTruncated', { n: MAX_PDF_CONTENT_CHARS }));
         }
         if (images.length > MAX_VISION_IMAGES) {
           warnings.push(
-            t('generation.imageTruncated')
-              .replace('{total}', String(images.length))
-              .replace('{max}', String(MAX_VISION_IMAGES)),
+            t('generation.imageTruncated', { total: images.length, max: MAX_VISION_IMAGES }),
           );
         }
         if (warnings.length > 0) {
@@ -309,9 +304,10 @@ function GenerationPreviewContent() {
           wsSettings.webSearchProvidersConfig?.[wsSettings.webSearchProviderId]?.apiKey;
         const res = await fetch('/api/web-search', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getApiHeaders(),
           body: JSON.stringify({
             query: currentSession.requirements.requirement,
+            pdfText: currentSession.pdfText || undefined,
             apiKey: wsApiKey || undefined,
           }),
           signal,
@@ -728,10 +724,14 @@ function GenerationPreviewContent() {
                 text: action.text,
                 audioId,
                 ttsProviderId: settings.ttsProviderId,
+                ttsModelId: ttsProviderConfig?.modelId,
                 ttsVoice: settings.ttsVoice,
                 ttsSpeed: settings.ttsSpeed,
                 ttsApiKey: ttsProviderConfig?.apiKey || undefined,
-                ttsBaseUrl: ttsProviderConfig?.baseUrl || undefined,
+                ttsBaseUrl:
+                  ttsProviderConfig?.baseUrl ||
+                  ttsProviderConfig?.customDefaultBaseUrl ||
+                  undefined,
               }),
               signal,
             });

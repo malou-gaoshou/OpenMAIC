@@ -64,10 +64,11 @@ export function TtsConfigPopover() {
       await startPreview({
         text: t('settings.ttsTestTextDefault'),
         providerId: ttsProviderId,
+        modelId: providerConfig?.modelId,
         voice: ttsVoice,
         speed: ttsSpeed,
         apiKey: providerConfig?.apiKey,
-        baseUrl: providerConfig?.baseUrl,
+        baseUrl: providerConfig?.baseUrl || providerConfig?.customDefaultBaseUrl,
       });
     } catch (error) {
       const message =
