@@ -7,8 +7,16 @@ import { createLogger } from '@/lib/logger';
 
 const log = createLogger('ClassroomStorage');
 
-export const CLASSROOMS_DIR = path.join(process.cwd(), 'data', 'classrooms');
-export const CLASSROOM_JOBS_DIR = path.join(process.cwd(), 'data', 'classroom-jobs');
+// 根据环境选择可写目录（Vercel Serverless 使用 /tmp）
+function getWritableDir(): string {
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return '/tmp';
+  }
+  return path.join(process.cwd(), 'data');
+}
+
+export const CLASSROOMS_DIR = path.join(getWritableDir(), 'classrooms');
+export const CLASSROOM_JOBS_DIR = path.join(getWritableDir(), 'classroom-jobs');
 
 function getSupabaseConfig() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
