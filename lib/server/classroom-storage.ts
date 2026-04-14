@@ -13,6 +13,15 @@ export const CLASSROOM_JOBS_DIR = path.join(process.cwd(), 'data', 'classroom-jo
 function getSupabaseConfig() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  log.debug('[DEBUG] NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl ? 'SET' : 'MISSING');
+  log.debug('[DEBUG] SUPABASE_SERVICE_ROLE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? 'SET' : 'MISSING');
+  log.debug('[DEBUG] NEXT_PUBLIC_SUPABASE_ANON_KEY:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'SET' : 'MISSING');
+
+  if (!supabaseUrl || !supabaseServiceKey) {
+    log.warn('Supabase service credentials not fully configured');
+  }
+
   return { supabaseUrl, supabaseServiceKey };
 }
 
