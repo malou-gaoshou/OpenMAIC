@@ -6,6 +6,7 @@ import {
   isValidClassroomId,
   persistClassroom,
   readClassroom,
+  readClassroomFromSupabase,
 } from '@/lib/server/classroom-storage';
 import { createLogger } from '@/lib/logger';
 
@@ -65,6 +66,9 @@ export async function GET(request: NextRequest) {
     }
 
     const classroom = await readClassroom(id);
+    if (!classroom) {
+      classroom = await readClassroomFromSupabase(id);
+    }
     if (!classroom) {
       return apiError(API_ERROR_CODES.INVALID_REQUEST, 404, 'Classroom not found');
     }
