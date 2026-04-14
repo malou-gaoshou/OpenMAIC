@@ -115,7 +115,12 @@ export async function readClassroomFromSupabase(id: string): Promise<PersistedCl
       .single();
 
     if (error || !data) {
-      log.debug(`Classroom ${id} not found in Supabase`);
+      log.debug(`Classroom ${id} not found in Supabase`, error ? {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint,
+      } : 'no data');
       return null;
     }
 
@@ -375,7 +380,12 @@ async function doSyncToSupabase(classroomData: {
     );
 
     if (error) {
-      log.error('Failed to sync classroom to Supabase:', error);
+      log.error('Failed to sync classroom to Supabase:', {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint,
+      });
       return false;
     }
     log.info(`Classroom ${classroomData.id} synced to Supabase`);
