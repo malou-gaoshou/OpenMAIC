@@ -1194,7 +1194,16 @@ export function getModel(config: ModelConfig): ModelWithInfo {
               }
             }
           }
-          return globalThis.fetch(url, init);
+          // Add 5-minute timeout for long-running AI calls
+          const timeoutMs = 300_000;
+          return globalThis.fetch(url, {
+            ...init,
+            signal: init?.signal
+              ? (AbortSignal as any).timeout
+                ? AbortSignal.timeout(timeoutMs)
+                : init.signal
+              : AbortSignal.timeout(timeoutMs),
+          });
         };
       }
 
@@ -1207,6 +1216,15 @@ export function getModel(config: ModelConfig): ModelWithInfo {
       const anthropic = createAnthropic({
         apiKey: effectiveApiKey,
         baseURL: effectiveBaseUrl,
+        fetch: async (url: RequestInfo | URL, init?: RequestInit) => {
+          // Add 5-minute timeout for long-running AI calls
+          return globalThis.fetch(url, {
+            ...init,
+            signal: init?.signal
+              ? (init.signal as AbortSignal)
+              : AbortSignal.timeout(300_000),
+          });
+        },
       });
       model = anthropic.chat(config.modelId);
       break;

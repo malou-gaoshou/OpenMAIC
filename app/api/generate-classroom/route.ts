@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
 
     after(() => runClassroomGenerationJob(jobId, body, baseUrl));
 
+    log.info(`Classroom generation job created: ${jobId}`);
+
     return apiSuccess(
       {
         jobId,
