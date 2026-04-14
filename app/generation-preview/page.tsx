@@ -628,6 +628,18 @@ function GenerationPreviewContent() {
       store.setStage(stage);
       store.setOutlines(outlines);
 
+      // Immediately persist stage + outlines to Supabase (shared-link access needs this)
+      try {
+        const baseUrl = window.location.origin;
+        await fetch(`${baseUrl}/api/classroom`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ stage, scenes: [], outlines }),
+        });
+      } catch (err) {
+        log.warn('[GenerationPreview] Failed to init classroom in Supabase:', err);
+      }
+
       // Advance to slide-content step
       const contentStepIdx = activeSteps.findIndex((s) => s.id === 'slide-content');
       if (contentStepIdx >= 0) setCurrentStepIndex(contentStepIdx);

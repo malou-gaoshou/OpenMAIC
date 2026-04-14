@@ -28,9 +28,48 @@ export default function ClassroomDetailPage() {
 
   const { generateRemaining, retrySingleOutline, stop } = useSceneGenerator({
     onComplete: () => {
-      log.info('[Classroom] All scenes generated');
+      log.info('[Classroom] All scenes generated, persisting to Supabase');
+      // 完成时全量保存到 Supabase
+      persistCurrentClassroom().catch((err) => {
+        log.warn('[Classroom] Final persist failed:', err);
+      });
+    },
+    onSceneGenerated: (scene) => {
+      log.info('[Classroom] Scene generated, incrementally saving:', scene.id);
+      // 每个场景生成后立即增量保存到 Supabase
+      persistCurrentClassroom().catch((err) => {
+        log.warn('[Classroom] Incremental persist failed:', err);
+      });
     },
   });
+
+  // 统一持久化函数：取当前 store 状态写入 Supabase
+  const persistCurrentClassroom = useCallback(async () => {
+    const state = useStageStore.getState();
+    if (!state.stage) return;
+    try {
+      const res = await fetch('/api/classroom', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: state.stage!.id,
+          scenes: state.scenes,
+          stage: {
+            name: state.stage!.name,
+            language: state.stage!.language,
+          },
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        log.warn('[Classroom] Persist failed:', err.error || res.status);
+      } else {
+        log.info('[Classroom] Persisted to Supabase');
+      }
+    } catch (err) {
+      log.warn('[Classroom] Persist network error:', err);
+    }
+  }, []);
 
   const loadClassroom = useCallback(async () => {
     try {
@@ -44,13 +83,20 @@ export default function ClassroomDetailPage() {
           if (res.ok) {
             const json = await res.json();
             if (json.success && json.classroom) {
-              const { stage, scenes } = json.classroom;
+              const { stage, scenes, outlines } = json.classroom;
               useStageStore.getState().setStage(stage);
               useStageStore.setState({
                 scenes,
                 currentSceneId: scenes[0]?.id ?? null,
               });
-              log.info('Loaded from server-side storage:', classroomId);
+              // Restore outlines so auto-resume can detect pending scenes
+              if (outlines && outlines.length > 0) {
+                useStageStore.getState().setOutlines(outlines);
+              }
+              log.info('Loaded from server-side storage:', classroomId, {
+                scenes: scenes.length,
+                outlines: outlines?.length ?? 0,
+              });
 
               // Hydrate server-generated agents into IndexedDB + registry.
               // Don't set selectedAgentIds here — the general agent

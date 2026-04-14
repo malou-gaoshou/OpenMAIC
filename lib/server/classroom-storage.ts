@@ -61,6 +61,7 @@ export interface PersistedClassroomData {
   id: string;
   stage: Stage;
   scenes: Scene[];
+  outlines?: unknown[];
   createdAt: string;
 }
 
@@ -103,8 +104,9 @@ export async function readClassroomFromSupabase(id: string): Promise<PersistedCl
 
     return {
       id,
-      stage: data.data.stage,
-      scenes: data.data.scenes,
+      stage: data.data?.stage || {},
+      scenes: data.data?.scenes || [],
+      outlines: data.data?.outlines || [],
       createdAt: data.created_at,
     };
   } catch (err) {
@@ -211,40 +213,168 @@ export async function persistClassroom(
   };
 }
 
-async function syncToSupabase(classroomData: PersistedClassroomData): Promise<void> {
+// 增量写入：追加/更新 scenes（用于生成中每完成一个场景立即持久化）
+export async function updateClassroomScenes(
+  id: string,
+  scenes: Scene[],
+  stage?: Partial<Stage>,
+): Promise<boolean> {
   if (!isSupabaseServerConfigured()) {
-    log.debug('Supabase not configured, skipping sync');
-    return;
+    log.debug('Supabase not configured, skipping scene update');
+    return false;
   }
 
   const supabase = createSupabaseServerClient();
-  if (!supabase) return;
+  if (!supabase) return false;
 
   try {
-    const { error } = await supabase.from('classrooms').upsert({
-      id: classroomData.id,
-      name: classroomData.stage.name,
-      description: classroomData.stage.description,
-      language: classroomData.stage.language,
-      style: classroomData.stage.style,
+    const { data: existing } = await supabase
+      .from('classrooms')
+      .select('data, scene_count')
+      .eq('id', id)
+      .single();
+
+    const existingScenes: Scene[] = existing?.data?.scenes || [];
+    const sceneMap = new Map(existingScenes.map((s) => [s.id, s]));
+    for (const s of scenes) sceneMap.set(s.id, s);
+    const merged = Array.from(sceneMap.values()).sort((a, b) => a.order - b.order);
+
+    const newStage = existing?.data?.stage
+      ? { ...existing.data.stage, ...stage }
+      : stage;
+    const updatePayload: Record<string, unknown> = {
       data: {
-        stage: classroomData.stage,
-        scenes: classroomData.scenes,
+        ...(existing?.data || {}),
+        scenes: merged,
+        stage: newStage,
       },
-      scene_count: classroomData.scenes.length,
-      agent_ids: classroomData.stage.agentIds || classroomData.stage.generatedAgentConfigs?.map(a => a.id),
-      requirements: (classroomData.stage as Stage & { requirements?: string }).requirements,
-      created_at: classroomData.createdAt,
-    }, {
-      onConflict: 'id',
-    });
+      scene_count: merged.length,
+    };
+    if (newStage && typeof newStage === 'object' && 'name' in newStage && newStage.name) {
+      updatePayload.name = newStage.name;
+    }
+    if (newStage && typeof newStage === 'object' && 'language' in newStage) {
+      updatePayload.language = newStage.language;
+    }
+
+    const { error } = await supabase
+      .from('classrooms')
+      .update(updatePayload)
+      .eq('id', id);
+
+    if (error) {
+      log.error(`Failed to update scenes for classroom ${id}:`, error);
+      return false;
+    }
+
+    try {
+      const filePath = path.join(CLASSROOMS_DIR, `${id}.json`);
+      const existingData = await readClassroom(id);
+      if (existingData) {
+        const updated = {
+          ...existingData,
+          scenes: merged,
+          stage: { ...existingData.stage, ...(stage as Stage) },
+        };
+        await writeJsonFileAtomic(filePath, updated);
+      }
+    } catch {
+      // 文件不存在或写入失败不影响主流程
+    }
+
+    log.info(`Updated ${scenes.length} scene(s) for classroom ${id} (total: ${merged.length})`);
+    return true;
+  } catch (err) {
+    log.error(`Error updating scenes for classroom ${id}:`, err);
+    return false;
+  }
+}
+
+// 初始化课程：写入 stage + outlines（生成开始前调用）
+export async function initClassroom(
+  id: string,
+  stage: Stage,
+  outlines: unknown[],
+  baseUrl: string,
+): Promise<boolean> {
+  const classroomData: PersistedClassroomData = {
+    id,
+    stage,
+    scenes: [],
+    createdAt: new Date().toISOString(),
+  };
+
+  // 写入本地文件
+  await ensureClassroomsDir();
+  const filePath = path.join(CLASSROOMS_DIR, `${id}.json`);
+  await writeJsonFileAtomic(filePath, classroomData);
+
+  // 写入 Supabase
+  const result = await doSyncToSupabase({
+    ...classroomData,
+    data: {
+      stage,
+      scenes: [],
+      outlines,
+    },
+  });
+
+  if (result) {
+    log.info(`Classroom ${id} initialized with ${outlines.length} outlines`);
+  }
+  return result;
+}
+
+// 内部：仅做 Supabase 写入，不操作本地文件（供 persistClassroom 和 initClassroom 复用）
+async function doSyncToSupabase(classroomData: {
+  id: string;
+  data: { stage?: Stage; scenes: Scene[]; outlines?: unknown[] };
+}): Promise<boolean> {
+  if (!isSupabaseServerConfigured()) {
+    log.debug('Supabase not configured, skipping sync');
+    return false;
+  }
+
+  const supabase = createSupabaseServerClient();
+  if (!supabase) return false;
+
+  try {
+    const { error } = await supabase.from('classrooms').upsert(
+      {
+        id: classroomData.id,
+        name: classroomData.data.stage?.name || '',
+        description: classroomData.data.stage?.description,
+        language: classroomData.data.stage?.language || 'zh-CN',
+        style: classroomData.data.stage?.style || 'interactive',
+        data: classroomData.data,
+        scene_count: classroomData.data.scenes?.length || 0,
+        agent_ids:
+          classroomData.data.stage?.agentIds ||
+          classroomData.data.stage?.generatedAgentConfigs?.map((a: { id: string }) => a.id),
+        requirements: (classroomData.data.stage as Stage & { requirements?: string })
+          ?.requirements,
+      },
+      { onConflict: 'id' },
+    );
 
     if (error) {
       log.error('Failed to sync classroom to Supabase:', error);
-    } else {
-      log.info(`Classroom ${classroomData.id} synced to Supabase`);
+      return false;
     }
+    log.info(`Classroom ${classroomData.id} synced to Supabase`);
+    return true;
   } catch (err) {
     log.error('Error syncing to Supabase:', err);
+    return false;
   }
+}
+
+async function syncToSupabase(classroomData: PersistedClassroomData): Promise<void> {
+  await doSyncToSupabase({
+    id: classroomData.id,
+    data: {
+      stage: classroomData.stage,
+      scenes: classroomData.scenes,
+    },
+  });
 }
