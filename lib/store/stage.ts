@@ -285,7 +285,9 @@ const useStageStoreBase = create<StageState>()((set, get) => ({
       const outlinesRecord = await db.stageOutlines.get(stageId);
       const outlines = outlinesRecord?.outlines || [];
 
-      if (data) {
+      // Only treat IndexedDB as "complete" if it has both stage AND scenes.
+      // If scenes is empty but Supabase has data, fall through to fetch from server.
+      if (data && data.scenes.length > 0) {
         set({
           stage: data.stage,
           scenes: data.scenes,
@@ -295,9 +297,9 @@ const useStageStoreBase = create<StageState>()((set, get) => ({
           // Compute generatingOutlines from persisted outlines minus completed scenes
           generatingOutlines: outlines.filter((o) => !data.scenes.some((s) => s.order === o.order)),
         });
-        log.info('Loaded from storage:', stageId);
+        log.info('Loaded from IndexedDB (complete):', stageId);
       } else {
-        log.warn('No data found for stage:', stageId);
+        log.info('IndexedDB has no scenes for', stageId, '— will try Supabase');
       }
     } catch (error) {
       log.error('Failed to load from storage:', error);
