@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
       return apiError(API_ERROR_CODES.INVALID_REQUEST, 400, 'Invalid classroom id');
     }
 
-    const classroom = await readClassroom(id);
+    let classroom = await readClassroom(id);
     if (!classroom) {
       classroom = await readClassroomFromSupabase(id);
     }
