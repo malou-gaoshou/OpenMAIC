@@ -75,8 +75,11 @@ export async function PATCH(request: NextRequest) {
       return apiError(API_ERROR_CODES.INVALID_REQUEST, 400, 'Invalid classroom id');
     }
 
+    log.info('[PATCH] Updating classroom:', { id, scenesCount: scenes?.length, hasStage: !!stage });
+
     const success = await updateClassroomScenes(id, scenes, stage);
     if (!success) {
+      log.warn('[PATCH] updateClassroomScenes returned false for id:', id);
       return apiError(API_ERROR_CODES.INTERNAL_ERROR, 500, 'Failed to update classroom');
     }
 
@@ -108,13 +111,25 @@ export async function GET(request: NextRequest) {
       return apiError(API_ERROR_CODES.INVALID_REQUEST, 400, 'Invalid classroom id');
     }
 
+    log.info('[GET] Fetching classroom:', id);
+
     let classroom = await readClassroom(id);
     if (!classroom) {
+      log.info('[GET] Not in local storage, trying Supabase for:', id);
       classroom = await readClassroomFromSupabase(id);
+    } else {
+      log.info('[GET] Found in local storage:', id);
     }
     if (!classroom) {
+      log.warn('[GET] Classroom not found:', id);
       return apiError(API_ERROR_CODES.INVALID_REQUEST, 404, 'Classroom not found');
     }
+
+    log.info('[GET] Returning classroom:', id, {
+      stageKeys: classroom.stage ? Object.keys(classroom.stage) : [],
+      scenesCount: classroom.scenes.length,
+      outlinesCount: classroom.outlines?.length ?? 0,
+    });
 
     return apiSuccess({ classroom });
   } catch (error) {
