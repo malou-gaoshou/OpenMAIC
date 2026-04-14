@@ -2,13 +2,32 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import type { NextRequest } from 'next/server';
 import type { Scene, Stage } from '@/lib/types/stage';
-import { createSupabaseServerClient, isSupabaseServerConfigured } from '@/lib/supabase';
+import { createClient } from '@supabase/supabase-js';
 import { createLogger } from '@/lib/logger';
 
 const log = createLogger('ClassroomStorage');
 
 export const CLASSROOMS_DIR = path.join(process.cwd(), 'data', 'classrooms');
 export const CLASSROOM_JOBS_DIR = path.join(process.cwd(), 'data', 'classroom-jobs');
+
+function getSupabaseConfig() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  return { supabaseUrl, supabaseServiceKey };
+}
+
+export function isSupabaseServerConfigured(): boolean {
+  const { supabaseUrl, supabaseServiceKey } = getSupabaseConfig();
+  return Boolean(supabaseUrl && supabaseServiceKey);
+}
+
+function createSupabaseServerClient() {
+  const { supabaseUrl, supabaseServiceKey } = getSupabaseConfig();
+  if (!supabaseUrl || !supabaseServiceKey) return null;
+  return createClient(supabaseUrl, supabaseServiceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+}
 
 async function ensureDir(dir: string) {
   await fs.mkdir(dir, { recursive: true });
