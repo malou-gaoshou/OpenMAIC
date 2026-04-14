@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   title: '星图AI',
   description:
     '开源 AI 互动课堂。上传 PDF，即可即时生成沉浸式、多 Agent 的学习体验。',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+  },
 };
 
 export default function RootLayout({
