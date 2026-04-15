@@ -1147,6 +1147,9 @@ export function getModel(config: ModelConfig): ModelWithInfo {
     }
   }
 
+  // Fall back to provider default model if modelId is empty
+  const effectiveModelId = config.modelId || provider?.models?.[0]?.id || config.modelId;
+
   // Validate API key if required
   if (requiresApiKey && !config.apiKey) {
     throw new Error(`API key required for provider: ${config.providerId}`);
@@ -1208,7 +1211,7 @@ export function getModel(config: ModelConfig): ModelWithInfo {
       }
 
       const openai = createOpenAI(openaiOptions);
-      model = openai.chat(config.modelId);
+      model = openai.chat(effectiveModelId);
       break;
     }
 
@@ -1226,7 +1229,7 @@ export function getModel(config: ModelConfig): ModelWithInfo {
           });
         },
       });
-      model = anthropic.chat(config.modelId);
+      model = anthropic.chat(effectiveModelId);
       break;
     }
 
@@ -1247,7 +1250,7 @@ export function getModel(config: ModelConfig): ModelWithInfo {
           }).then((r: unknown) => r as Response)) as typeof fetch;
       }
       const google = createGoogleGenerativeAI(googleOptions);
-      model = google.chat(config.modelId);
+      model = google.chat(effectiveModelId);
       break;
     }
 
@@ -1256,7 +1259,7 @@ export function getModel(config: ModelConfig): ModelWithInfo {
   }
 
   // Look up model info from the provider registry
-  const modelInfo = provider?.models.find((m) => m.id === config.modelId) || null;
+  const modelInfo = provider?.models.find((m) => m.id === effectiveModelId) || null;
 
   return { model, modelInfo };
 }
@@ -1272,9 +1275,12 @@ export function parseModelString(modelString: string): {
   const colonIndex = modelString.indexOf(':');
 
   if (colonIndex > 0) {
+    const modelId = modelString.slice(colonIndex + 1);
+    // Handle empty modelId like "glm:" by defaulting to empty string
+    // (will fall back to provider default later in getModel)
     return {
       providerId: modelString.slice(0, colonIndex) as ProviderId,
-      modelId: modelString.slice(colonIndex + 1),
+      modelId: modelId || '',
     };
   }
 

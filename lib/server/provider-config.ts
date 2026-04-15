@@ -259,7 +259,7 @@ export function getServerProviders(): Record<string, { models?: string[]; baseUr
 
 /** Resolve API key: client key > server key > empty string */
 export function resolveApiKey(providerId: string, clientKey?: string): string {
-  if (clientKey) return clientKey;
+  if (clientKey && clientKey.trim()) return clientKey;
   return getConfig().providers[providerId]?.apiKey || '';
 }
 
