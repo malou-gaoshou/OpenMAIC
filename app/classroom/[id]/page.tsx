@@ -29,7 +29,7 @@ export default function ClassroomDetailPage() {
   // 只读模式：分享链接访问时不启用任何编辑/生成功能
   const isReadOnly = true;
 
-  const { stop } = useSceneGenerator({
+  const { generateRemaining, retrySingleOutline, stop } = useSceneGenerator({
     onComplete: () => {
       log.info('[Classroom] All scenes generated, persisting to Supabase');
       persistCurrentClassroom().catch((err) => {
@@ -199,23 +199,20 @@ export default function ClassroomDetailPage() {
         .map((img: { storageId?: string }) => img.storageId)
         .filter(Boolean);
 
-      const { generateRemaining } = useSceneGenerator.getState?.() || {};
-      if (generateRemaining) {
-        loadImageMapping(storageIds).then((imageMapping) => {
-          generateRemaining({
-            pdfImages: params.pdfImages,
-            imageMapping,
-            stageInfo: {
-              name: stage.name || '',
-              description: stage.description,
-              language: stage.language,
-              style: stage.style,
-            },
-            agents: params.agents,
-            userProfile: params.userProfile,
-          });
+      loadImageMapping(storageIds).then((imageMapping) => {
+        generateRemaining({
+          pdfImages: params.pdfImages,
+          imageMapping,
+          stageInfo: {
+            name: stage.name || '',
+            description: stage.description,
+            language: stage.language,
+            style: stage.style,
+          },
+          agents: params.agents,
+          userProfile: params.userProfile,
         });
-      }
+      });
     } else if (outlines.length > 0 && stage) {
       // All scenes are generated, but some media may not have finished.
       const genParamsStr = sessionStorage.getItem('generationParams');
@@ -228,7 +225,7 @@ export default function ClassroomDetailPage() {
         log.warn('[Classroom] Media generation resume error:', err);
       });
     }
-  }, [loading, error, isReadOnly]);
+  }, [loading, error, isReadOnly, generateRemaining]);
 
   return (
     <ThemeProvider>
@@ -257,7 +254,7 @@ export default function ClassroomDetailPage() {
               </div>
             </div>
           ) : (
-            <Stage isReadOnly={isReadOnly} />
+            <Stage isReadOnly={isReadOnly} onRetryOutline={isReadOnly ? undefined : retrySingleOutline} />
           )}
         </div>
       </MediaStageProvider>
