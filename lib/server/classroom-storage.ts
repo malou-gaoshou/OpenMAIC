@@ -7,17 +7,6 @@ import { createLogger } from '@/lib/logger';
 
 const log = createLogger('ClassroomStorage');
 
-// 根据环境选择可写目录（Vercel Serverless 使用 /tmp）
-function getWritableDir(): string {
-  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
-    return '/tmp';
-  }
-  return path.join(process.cwd(), 'data');
-}
-
-export const CLASSROOMS_DIR = path.join(getWritableDir(), 'classrooms');
-export const CLASSROOM_JOBS_DIR = path.join(getWritableDir(), 'classroom-jobs');
-
 function getSupabaseConfig() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -45,6 +34,18 @@ function createSupabaseServerClient() {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 }
+
+// 保留路径常量供其他模块使用（classroom-job-store 和 media-generation 仍使用本地文件）
+// Vercel 上使用 /tmp，Vercel 函数重启后文件会丢失，但 job/media 主要是内部使用，影响较小
+function getWritableDir(): string {
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return '/tmp';
+  }
+  return path.join(process.cwd(), 'data');
+}
+
+export const CLASSROOMS_DIR = path.join(getWritableDir(), 'classrooms');
+export const CLASSROOM_JOBS_DIR = path.join(getWritableDir(), 'classroom-jobs');
 
 async function ensureDir(dir: string) {
   await fs.mkdir(dir, { recursive: true });
@@ -86,21 +87,9 @@ export function isValidClassroomId(id: string): boolean {
   return /^[a-zA-Z0-9_-]+$/.test(id);
 }
 
-export async function readClassroom(id: string): Promise<PersistedClassroomData | null> {
-  const filePath = path.join(CLASSROOMS_DIR, `${id}.json`);
-  try {
-    const content = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(content) as PersistedClassroomData;
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      return null;
-    }
-    throw error;
-  }
-}
-
 export async function readClassroomFromSupabase(id: string): Promise<PersistedClassroomData | null> {
   if (!isSupabaseServerConfigured()) {
+    log.debug('Supabase not configured, skipping read');
     return null;
   }
 
@@ -223,10 +212,6 @@ export async function persistClassroom(
     createdAt: new Date().toISOString(),
   };
 
-  await ensureClassroomsDir();
-  const filePath = path.join(CLASSROOMS_DIR, `${data.id}.json`);
-  await writeJsonFileAtomic(filePath, classroomData);
-
   await syncToSupabase(classroomData);
 
   return {
@@ -289,21 +274,6 @@ export async function updateClassroomScenes(
       return false;
     }
 
-    try {
-      const filePath = path.join(CLASSROOMS_DIR, `${id}.json`);
-      const existingData = await readClassroom(id);
-      if (existingData) {
-        const updated = {
-          ...existingData,
-          scenes: merged,
-          stage: { ...existingData.stage, ...(stage as Stage) },
-        };
-        await writeJsonFileAtomic(filePath, updated);
-      }
-    } catch {
-      // 文件不存在或写入失败不影响主流程
-    }
-
     log.info(`Updated ${scenes.length} scene(s) for classroom ${id} (total: ${merged.length})`);
     return true;
   } catch (err) {
@@ -326,12 +296,7 @@ export async function initClassroom(
     createdAt: new Date().toISOString(),
   };
 
-  // 写入本地文件
-  await ensureClassroomsDir();
-  const filePath = path.join(CLASSROOMS_DIR, `${id}.json`);
-  await writeJsonFileAtomic(filePath, classroomData);
-
-  // 写入 Supabase
+  // 直接写入 Supabase
   const result = await doSyncToSupabase({
     ...classroomData,
     data: {
@@ -347,7 +312,7 @@ export async function initClassroom(
   return result;
 }
 
-// 内部：仅做 Supabase 写入，不操作本地文件（供 persistClassroom 和 initClassroom 复用）
+// 内部：仅做 Supabase 写入
 async function doSyncToSupabase(classroomData: {
   id: string;
   data: { stage?: Stage; scenes: Scene[]; outlines?: unknown[] };

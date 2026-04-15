@@ -5,7 +5,6 @@ import {
   buildRequestOrigin,
   isValidClassroomId,
   persistClassroom,
-  readClassroom,
   readClassroomFromSupabase,
   updateClassroomScenes,
   initClassroom,
@@ -111,17 +110,11 @@ export async function GET(request: NextRequest) {
       return apiError(API_ERROR_CODES.INVALID_REQUEST, 400, 'Invalid classroom id');
     }
 
-    log.info('[GET] Fetching classroom:', id);
+    log.info('[GET] Fetching classroom from Supabase:', id);
 
-    let classroom = await readClassroom(id);
+    const classroom = await readClassroomFromSupabase(id);
     if (!classroom) {
-      log.info('[GET] Not in local storage, trying Supabase for:', id);
-      classroom = await readClassroomFromSupabase(id);
-    } else {
-      log.info('[GET] Found in local storage:', id);
-    }
-    if (!classroom) {
-      log.warn('[GET] Classroom not found:', id);
+      log.warn('[GET] Classroom not found in Supabase:', id);
       return apiError(API_ERROR_CODES.INVALID_REQUEST, 404, 'Classroom not found');
     }
 

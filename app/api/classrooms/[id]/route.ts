@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readClassroom, readClassroomFromSupabase, isValidClassroomId } from '@/lib/server/classroom-storage';
+import { readClassroomFromSupabase, isValidClassroomId } from '@/lib/server/classroom-storage';
 
 export async function GET(
   request: NextRequest,
@@ -15,11 +15,7 @@ export async function GET(
   }
 
   try {
-    let classroom = await readClassroom(id);
-
-    if (!classroom) {
-      classroom = await readClassroomFromSupabase(id);
-    }
+    const classroom = await readClassroomFromSupabase(id);
 
     if (!classroom) {
       return NextResponse.json(
@@ -32,7 +28,7 @@ export async function GET(
       data: classroom,
     });
   } catch (error) {
-    console.error('Error reading classroom:', error);
+    console.error('Error reading classroom from Supabase:', error);
     return NextResponse.json(
       { error: 'Failed to read classroom' },
       { status: 500 }
