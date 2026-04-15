@@ -24,6 +24,7 @@ interface SceneSidebarProps {
   readonly onCollapseChange: (collapsed: boolean) => void;
   readonly onSceneSelect?: (sceneId: string) => void;
   readonly onRetryOutline?: (outlineId: string) => Promise<void>;
+  readonly isReadOnly?: boolean;
 }
 
 const DEFAULT_WIDTH = 220;
@@ -35,6 +36,7 @@ export function SceneSidebar({
   onCollapseChange,
   onSceneSelect,
   onRetryOutline,
+  isReadOnly = false,
 }: SceneSidebarProps) {
   const { t } = useI18n();
   const router = useRouter();
@@ -323,8 +325,8 @@ export function SceneSidebar({
             );
           })}
 
-          {/* Single placeholder for the next generating page (clickable) */}
-          {generatingOutlines.length > 0 &&
+          {/* Single placeholder for the next generating page (hidden in read-only mode) */}
+          {!isReadOnly && generatingOutlines.length > 0 &&
             (() => {
               const outline = generatingOutlines[0];
               const isFailed = failedOutlines.some((f) => f.id === outline.id);
@@ -394,7 +396,9 @@ export function SceneSidebar({
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
                       {isFailed ? (
                         <div className="flex items-center gap-1 text-xs font-medium text-red-500/90 dark:text-red-400">
-                          {onRetryOutline ? (
+                          {isReadOnly ? (
+                            <AlertCircle className="w-3.5 h-3.5" />
+                          ) : onRetryOutline ? (
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();

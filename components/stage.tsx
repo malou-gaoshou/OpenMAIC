@@ -42,8 +42,10 @@ import { VisuallyHidden } from 'radix-ui';
  */
 export function Stage({
   onRetryOutline,
+  isReadOnly = false,
 }: {
   onRetryOutline?: (outlineId: string) => Promise<void>;
+  isReadOnly?: boolean;
 }) {
   const { t } = useI18n();
   const { mode, getCurrentScene, scenes, currentSceneId, setCurrentSceneId, generatingOutlines } =
@@ -935,7 +937,8 @@ export function Stage({
         collapsed={sidebarCollapsed}
         onCollapseChange={setSidebarCollapsed}
         onSceneSelect={gatedSceneSwitch}
-        onRetryOutline={onRetryOutline}
+        onRetryOutline={isReadOnly ? undefined : onRetryOutline}
+        isReadOnly={isReadOnly}
       />
 
       {/* Main Content Area */}
@@ -982,7 +985,7 @@ export function Stage({
               isPendingScene && failedOutlines.some((f) => f.id === generatingOutlines[0]?.id)
             }
             onRetryGeneration={
-              onRetryOutline && generatingOutlines[0]
+              !isReadOnly && onRetryOutline && generatingOutlines[0]
                 ? () => onRetryOutline(generatingOutlines[0].id)
                 : undefined
             }

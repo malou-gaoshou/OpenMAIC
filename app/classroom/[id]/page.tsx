@@ -26,17 +26,18 @@ export default function ClassroomDetailPage() {
 
   const generationStartedRef = useRef(false);
 
-  const { generateRemaining, retrySingleOutline, stop } = useSceneGenerator({
+  // 只读模式：分享链接访问时不启用任何编辑/生成功能
+  const isReadOnly = true;
+
+  const { stop } = useSceneGenerator({
     onComplete: () => {
       log.info('[Classroom] All scenes generated, persisting to Supabase');
-      // 完成时全量保存到 Supabase
       persistCurrentClassroom().catch((err) => {
         log.warn('[Classroom] Final persist failed:', err);
       });
     },
     onSceneGenerated: (scene) => {
       log.info('[Classroom] Scene generated, incrementally saving:', scene.id);
-      // 每个场景生成后立即增量保存到 Supabase
       persistCurrentClassroom().catch((err) => {
         log.warn('[Classroom] Incremental persist failed:', err);
       });
@@ -99,8 +100,6 @@ export default function ClassroomDetailPage() {
               });
 
               // Hydrate server-generated agents into IndexedDB + registry.
-              // Don't set selectedAgentIds here — the general agent
-              // restoration logic below (Path 2) handles it uniformly.
               if (stage.generatedAgentConfigs?.length) {
                 const { saveGeneratedAgents } = await import('@/lib/orchestration/registry/store');
                 await saveGeneratedAgents(stage.id, stage.generatedAgentConfigs);
@@ -126,8 +125,6 @@ export default function ClassroomDetailPage() {
         useSettingsStore.getState().setSelectedAgentIds(generatedAgentIds);
       } else {
         // Preset mode — restore agent IDs saved in the stage at creation time.
-        // Filter out any stale generated IDs that may have been persisted before
-        // the bleed-fix, so they don't resolve against a leftover registry entry.
         const stage = useStageStore.getState().stage;
         const stageAgentIds = stage?.agentIds;
         const registry = useAgentRegistry.getState();
@@ -158,8 +155,6 @@ export default function ClassroomDetailPage() {
     generationStartedRef.current = false;
 
     // Clear previous classroom's media tasks to prevent cross-classroom contamination.
-    // Placeholder IDs (gen_img_1, gen_vid_1) are NOT globally unique across stages,
-    // so stale tasks from a previous classroom would shadow the new one's.
     const mediaStore = useMediaGenerationStore.getState();
     mediaStore.revokeObjectUrls();
     useMediaGenerationStore.setState({ tasks: {} });
@@ -175,9 +170,15 @@ export default function ClassroomDetailPage() {
     };
   }, [classroomId, loadClassroom, stop]);
 
-  // Auto-resume generation for pending outlines
+  // 只读模式：禁用所有自动生成和重新生成功能
   useEffect(() => {
     if (loading || error || generationStartedRef.current) return;
+
+    // 分享链接模式下不执行任何生成逻辑
+    if (isReadOnly) {
+      log.info('[Classroom] Read-only mode, skipping auto-resume');
+      return;
+    }
 
     const state = useStageStore.getState();
     const { outlines, scenes, stage } = state;
@@ -198,27 +199,25 @@ export default function ClassroomDetailPage() {
         .map((img: { storageId?: string }) => img.storageId)
         .filter(Boolean);
 
-      loadImageMapping(storageIds).then((imageMapping) => {
-        generateRemaining({
-          pdfImages: params.pdfImages,
-          imageMapping,
-          stageInfo: {
-            name: stage.name || '',
-            description: stage.description,
-            language: stage.language,
-            style: stage.style,
-          },
-          agents: params.agents,
-          userProfile: params.userProfile,
+      const { generateRemaining } = useSceneGenerator.getState?.() || {};
+      if (generateRemaining) {
+        loadImageMapping(storageIds).then((imageMapping) => {
+          generateRemaining({
+            pdfImages: params.pdfImages,
+            imageMapping,
+            stageInfo: {
+              name: stage.name || '',
+              description: stage.description,
+              language: stage.language,
+              style: stage.style,
+            },
+            agents: params.agents,
+            userProfile: params.userProfile,
+          });
         });
-      });
+      }
     } else if (outlines.length > 0 && stage) {
       // All scenes are generated, but some media may not have finished.
-      // Resume media generation for any tasks not yet in IndexedDB.
-      // generateMediaForOutlines skips already-completed tasks automatically.
-      //
-      // Skip auto-resume for shared link users (no sessionStorage data).
-      // Only resume if the original user with sessionStorage is accessing.
       const genParamsStr = sessionStorage.getItem('generationParams');
       if (!genParamsStr) {
         log.info('[Classroom] Shared link access, skipping auto-resume');
@@ -229,7 +228,7 @@ export default function ClassroomDetailPage() {
         log.warn('[Classroom] Media generation resume error:', err);
       });
     }
-  }, [loading, error, generateRemaining]);
+  }, [loading, error, isReadOnly]);
 
   return (
     <ThemeProvider>
@@ -258,7 +257,7 @@ export default function ClassroomDetailPage() {
               </div>
             </div>
           ) : (
-            <Stage onRetryOutline={retrySingleOutline} />
+            <Stage isReadOnly={isReadOnly} />
           )}
         </div>
       </MediaStageProvider>
